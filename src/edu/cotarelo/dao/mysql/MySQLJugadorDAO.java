@@ -198,19 +198,20 @@ public class MySQLJugadorDAO implements JugadorDAO {
 				ps = connection.pStatement(sql);
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Jugador jugador = new Jugador();
-					//guardamos las lista de jugadores en la tabla Hash
-					if (rs.getString("apellidos")!=null && rs.getString("apellidos")!="") {
-						jugador.setIdJugador(rs.getInt("IdJugador"));
-						jugador.setNombre(rs.getString("nombre"));
-						jugador.setApellidos(rs.getString("apellidos"));
-						
-					}else {
-						jugador.setIdJugador(rs.getInt("IdJugador"));
-						jugador.setNombre(rs.getString("nombre"));
-						jugador.setApellidos("");
-					}
-					lista.add(jugador);
+                                    Jugador jugador = new Jugador();
+                                    //guardamos las lista de jugadores en la tabla Hash
+                                    if (rs.getString("apellidos")!=null && rs.getString("apellidos")!="") {
+                                            jugador.setIdJugador(rs.getInt("IdJugador"));
+                                            jugador.setNombre(rs.getString("nombre"));
+                                            jugador.setApellidos(rs.getString("apellidos"));
+                                            jugador.setPosicion(rs.getString("posicion"));
+                                    }else {
+                                            jugador.setIdJugador(rs.getInt("IdJugador"));
+                                            jugador.setNombre(rs.getString("nombre"));
+                                            jugador.setApellidos("");
+                                            jugador.setPosicion(rs.getString("posicion"));
+                                    }
+                                    lista.add(jugador);
 				}
 			}			
 		} catch (SQLException | ClassNotFoundException | NamingException e) {
