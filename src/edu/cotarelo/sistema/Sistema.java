@@ -6,7 +6,9 @@ package edu.cotarelo.sistema;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
 import edu.cotarelo.dao.mysql.MySQLUsuarioDAO;
+import edu.cotarelo.dao.objects.JugadorDAO;
 import edu.cotarelo.domain.Usuario;
+import edu.cotarelo.domain.Jugador;
 import edu.cotarelo.dao.objects.UsuarioDAO;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -55,7 +57,7 @@ public class Sistema extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         panelAlta = new javax.swing.JPanel();
-        tituloAlta = new javax.swing.JLabel();
+        tituloAltaUsuario = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
         rolLabel = new javax.swing.JLabel();
         apellidosLabel = new javax.swing.JLabel();
@@ -64,16 +66,16 @@ public class Sistema extends javax.swing.JFrame {
         altaUsuarioNombre = new javax.swing.JTextField();
         altaUsuarioPass = new javax.swing.JTextField();
         altaUsuarioRol = new javax.swing.JComboBox<>();
-        botonAlta = new javax.swing.JButton();
+        botonAltaUsuario = new javax.swing.JButton();
         altaUsuarioRespuesta = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsuarioListado = new javax.swing.JTable();
         tituloTablaUsuarios = new javax.swing.JLabel();
-        botonCargarUsuarios = new javax.swing.JButton();
+        botonCargarTablaUsuarios = new javax.swing.JButton();
         tablaUsuariosRespuesta = new javax.swing.JLabel();
         panelBaja = new javax.swing.JPanel();
-        tituloBaja = new javax.swing.JLabel();
+        tituloBajaUsuarios = new javax.swing.JLabel();
         nombreBajaLabel = new javax.swing.JLabel();
         rolBajaLabel = new javax.swing.JLabel();
         apellidosBajaLabel = new javax.swing.JLabel();
@@ -86,9 +88,39 @@ public class Sistema extends javax.swing.JFrame {
         bajaUsuarioRespuesta = new javax.swing.JTextField();
         contraseñaBajaLabel1 = new javax.swing.JLabel();
         botonesBajaModificacion = new javax.swing.JPanel();
-        botonEliminar = new javax.swing.JButton();
-        botonModificar = new javax.swing.JButton();
+        botonEliminarUsuario = new javax.swing.JButton();
+        botonModificarUsuario = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        panelAlta1 = new javax.swing.JPanel();
+        tituloAltaJugador = new javax.swing.JLabel();
+        nombreJugadorLabel = new javax.swing.JLabel();
+        apellidosJugadorLabel = new javax.swing.JLabel();
+        posicionJugadorLabel = new javax.swing.JLabel();
+        altaJugadorApellidos = new javax.swing.JTextField();
+        altaJugadorNombre = new javax.swing.JTextField();
+        altaJugadorPosicion = new javax.swing.JComboBox<>();
+        botonAltaJugador = new javax.swing.JButton();
+        altaJugadorRespuesta = new javax.swing.JTextField();
+        panelBaja1 = new javax.swing.JPanel();
+        tituloBajaJugador = new javax.swing.JLabel();
+        nombreBajaJugadorLabel = new javax.swing.JLabel();
+        apellidosBajaJugadorLabel = new javax.swing.JLabel();
+        posiciónBajaJugadorLabel = new javax.swing.JLabel();
+        bajaJugadorApellidos = new javax.swing.JTextField();
+        bajaJugadorNombre = new javax.swing.JTextField();
+        bajaJugadorId = new javax.swing.JTextField();
+        bajaJugadorRespuesta = new javax.swing.JTextField();
+        idBajaJugadorLabel = new javax.swing.JLabel();
+        botonesBajaModificacion1 = new javax.swing.JPanel();
+        botonEliminarJugador = new javax.swing.JButton();
+        botonModificarJugador = new javax.swing.JButton();
+        bajaJugadorPosicion = new javax.swing.JComboBox<>();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaJugadoresListado = new javax.swing.JTable();
+        tituloTablaJugadores = new javax.swing.JLabel();
+        botonCargarJugadores = new javax.swing.JButton();
+        tablaUsuariosRespuesta1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelLateral = new javax.swing.JPanel();
@@ -112,8 +144,8 @@ public class Sistema extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
 
-        tituloAlta.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        tituloAlta.setText("Alta de usuario");
+        tituloAltaUsuario.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloAltaUsuario.setText("Alta de usuario");
 
         nombreLabel.setText("Nombre");
 
@@ -131,11 +163,11 @@ public class Sistema extends javax.swing.JFrame {
 
         altaUsuarioRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Admin" }));
 
-        botonAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/insertarI.png"))); // NOI18N
-        botonAlta.setText("Alta");
-        botonAlta.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonAltaUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/insertarI.png"))); // NOI18N
+        botonAltaUsuario.setText("Alta");
+        botonAltaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonAltaMouseClicked(evt);
+                botonAltaUsuarioMouseClicked(evt);
             }
         });
 
@@ -148,7 +180,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(panelAltaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloAlta)
+                    .addComponent(tituloAltaUsuario)
                     .addGroup(panelAltaLayout.createSequentialGroup()
                         .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(altaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,7 +198,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(panelAltaLayout.createSequentialGroup()
                                 .addComponent(altaUsuarioRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botonAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(botonAltaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(rolLabel)))
                     .addComponent(altaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -175,7 +207,7 @@ public class Sistema extends javax.swing.JFrame {
             panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAltaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tituloAlta)
+                .addComponent(tituloAltaUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
@@ -188,7 +220,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(altaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(altaUsuarioPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(altaUsuarioRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAlta))
+                    .addComponent(botonAltaUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(altaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -222,11 +254,11 @@ public class Sistema extends javax.swing.JFrame {
         tituloTablaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tituloTablaUsuarios.setText("Listado de usuarios");
 
-        botonCargarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cargarI.png"))); // NOI18N
-        botonCargarUsuarios.setText("Cargar");
-        botonCargarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonCargarTablaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cargarI.png"))); // NOI18N
+        botonCargarTablaUsuarios.setText("Cargar");
+        botonCargarTablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonCargarUsuariosMouseClicked(evt);
+                botonCargarTablaUsuariosMouseClicked(evt);
             }
         });
 
@@ -243,7 +275,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(136, 136, 136)
                 .addComponent(tablaUsuariosRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonCargarUsuarios)
+                .addComponent(botonCargarTablaUsuarios)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -257,14 +289,14 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonCargarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonCargarTablaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tablaUsuariosRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tituloBaja.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        tituloBaja.setText("Baja/Modificación");
+        tituloBajaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloBajaUsuarios.setText("Baja/Modificación");
 
         nombreBajaLabel.setText("Nombre");
 
@@ -288,29 +320,29 @@ public class Sistema extends javax.swing.JFrame {
 
         contraseñaBajaLabel1.setText("id");
 
-        botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
-        botonEliminar.setText("Eliminar");
-        botonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonEliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
+        botonEliminarUsuario.setText("Eliminar");
+        botonEliminarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonEliminarMouseClicked(evt);
+                botonEliminarUsuarioMouseClicked(evt);
             }
         });
-        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+        botonEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEliminarActionPerformed(evt);
+                botonEliminarUsuarioActionPerformed(evt);
             }
         });
 
-        botonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
-        botonModificar.setText("Modificar");
-        botonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
+        botonModificarUsuario.setText("Modificar");
+        botonModificarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonModificarMouseClicked(evt);
+                botonModificarUsuarioMouseClicked(evt);
             }
         });
-        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+        botonModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarActionPerformed(evt);
+                botonModificarUsuarioActionPerformed(evt);
             }
         });
 
@@ -321,17 +353,17 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(botonesBajaModificacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(botonesBajaModificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonModificarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonEliminarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         botonesBajaModificacionLayout.setVerticalGroup(
             botonesBajaModificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botonesBajaModificacionLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonModificar)
+                .addComponent(botonModificarUsuario)
                 .addContainerGap())
         );
 
@@ -343,7 +375,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bajaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tituloBaja)
+                    .addComponent(tituloBajaUsuarios)
                     .addGroup(panelBajaLayout.createSequentialGroup()
                         .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bajaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,7 +407,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonesBajaModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelBajaLayout.createSequentialGroup()
-                        .addComponent(tituloBaja)
+                        .addComponent(tituloBajaUsuarios)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nombreBajaLabel)
@@ -418,15 +450,303 @@ public class Sistema extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Usuarios", jPanel5);
 
+        tituloAltaJugador.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloAltaJugador.setText("Alta de jugador");
+
+        nombreJugadorLabel.setText("Nombre");
+
+        apellidosJugadorLabel.setText("Apellidos");
+
+        posicionJugadorLabel.setText("Posición");
+
+        altaJugadorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaJugadorNombreActionPerformed(evt);
+            }
+        });
+
+        altaJugadorPosicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "defensa central", "delantero centro", "extremo derecho", "extremo izquierdo", "interior derecho", "interior izquierdo", "lateral derecho", "lateral izquierdo", "media punta", "medio centro", "portero" }));
+        altaJugadorPosicion.setToolTipText("");
+
+        botonAltaJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/insertarI.png"))); // NOI18N
+        botonAltaJugador.setText("Alta");
+        botonAltaJugador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonAltaJugadorMouseClicked(evt);
+            }
+        });
+        botonAltaJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAltaJugadorActionPerformed(evt);
+            }
+        });
+
+        altaJugadorRespuesta.setEditable(false);
+
+        javax.swing.GroupLayout panelAlta1Layout = new javax.swing.GroupLayout(panelAlta1);
+        panelAlta1.setLayout(panelAlta1Layout);
+        panelAlta1Layout.setHorizontalGroup(
+            panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAlta1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAlta1Layout.createSequentialGroup()
+                        .addGroup(panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(altaJugadorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreJugadorLabel))
+                        .addGap(6, 6, 6)
+                        .addGroup(panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(altaJugadorApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(apellidosJugadorLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(posicionJugadorLabel)
+                            .addComponent(altaJugadorPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonAltaJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(altaJugadorRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloAltaJugador))
+                .addGap(14, 14, 14))
+        );
+        panelAlta1Layout.setVerticalGroup(
+            panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAlta1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tituloAltaJugador)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreJugadorLabel)
+                    .addComponent(apellidosJugadorLabel)
+                    .addComponent(posicionJugadorLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAlta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(altaJugadorApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(altaJugadorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonAltaJugador)
+                    .addComponent(altaJugadorPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(altaJugadorRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        tituloBajaJugador.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloBajaJugador.setText("Baja/Modificación");
+
+        nombreBajaJugadorLabel.setText("Nombre");
+
+        apellidosBajaJugadorLabel.setText("Apellidos");
+
+        posiciónBajaJugadorLabel.setText("Posición");
+
+        bajaJugadorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bajaJugadorNombreActionPerformed(evt);
+            }
+        });
+
+        bajaJugadorId.setEditable(false);
+        bajaJugadorId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bajaJugadorIdActionPerformed(evt);
+            }
+        });
+
+        bajaJugadorRespuesta.setEditable(false);
+
+        idBajaJugadorLabel.setText("id");
+
+        botonEliminarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
+        botonEliminarJugador.setText("Eliminar");
+        botonEliminarJugador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonEliminarJugadorMouseClicked(evt);
+            }
+        });
+        botonEliminarJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarJugadorActionPerformed(evt);
+            }
+        });
+
+        botonModificarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
+        botonModificarJugador.setText("Modificar");
+        botonModificarJugador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonModificarJugadorMouseClicked(evt);
+            }
+        });
+        botonModificarJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarJugadorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout botonesBajaModificacion1Layout = new javax.swing.GroupLayout(botonesBajaModificacion1);
+        botonesBajaModificacion1.setLayout(botonesBajaModificacion1Layout);
+        botonesBajaModificacion1Layout.setHorizontalGroup(
+            botonesBajaModificacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonesBajaModificacion1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(botonesBajaModificacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonModificarJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonEliminarJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        botonesBajaModificacion1Layout.setVerticalGroup(
+            botonesBajaModificacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonesBajaModificacion1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonEliminarJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonModificarJugador)
+                .addContainerGap())
+        );
+
+        bajaJugadorPosicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "defensa central", "delantero centro", "extremo derecho", "extremo izquierdo", "interior derecho", "interior izquierdo", "lateral derecho", "lateral izquierdo", "media punta", "medio centro", "portero" }));
+        bajaJugadorPosicion.setToolTipText("");
+
+        javax.swing.GroupLayout panelBaja1Layout = new javax.swing.GroupLayout(panelBaja1);
+        panelBaja1.setLayout(panelBaja1Layout);
+        panelBaja1Layout.setHorizontalGroup(
+            panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBaja1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bajaJugadorRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloBajaJugador)
+                    .addGroup(panelBaja1Layout.createSequentialGroup()
+                        .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bajaJugadorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreBajaJugadorLabel))
+                        .addGap(6, 6, 6)
+                        .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bajaJugadorApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(apellidosBajaJugadorLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(posiciónBajaJugadorLabel)
+                            .addComponent(bajaJugadorPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(94, 94, 94)
+                        .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bajaJugadorId, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idBajaJugadorLabel))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonesBajaModificacion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelBaja1Layout.setVerticalGroup(
+            panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBaja1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonesBajaModificacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelBaja1Layout.createSequentialGroup()
+                        .addComponent(tituloBajaJugador)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nombreBajaJugadorLabel)
+                            .addComponent(apellidosBajaJugadorLabel)
+                            .addComponent(posiciónBajaJugadorLabel)
+                            .addComponent(idBajaJugadorLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelBaja1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bajaJugadorApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bajaJugadorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bajaJugadorId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bajaJugadorPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bajaJugadorRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tablaJugadoresListado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Apellidos", "Posición", "IdJugador"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaJugadoresListado);
+
+        tituloTablaJugadores.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloTablaJugadores.setText("Listado de jugadores");
+
+        botonCargarJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cargarI.png"))); // NOI18N
+        botonCargarJugadores.setText("Cargar");
+        botonCargarJugadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonCargarJugadoresMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tituloTablaJugadores)
+                .addGap(136, 136, 136)
+                .addComponent(tablaUsuariosRespuesta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonCargarJugadores)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(tituloTablaJugadores)
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botonCargarJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tablaUsuariosRespuesta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 893, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelBaja1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAlta1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(panelAlta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelBaja1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Jugadores", jPanel4);
@@ -578,37 +898,77 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_altaUsuarioNombreActionPerformed
 
-    private void botonAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAltaMouseClicked
+    private void botonAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAltaUsuarioMouseClicked
         altaUsuario();
-    }//GEN-LAST:event_botonAltaMouseClicked
+    }//GEN-LAST:event_botonAltaUsuarioMouseClicked
 
     private void EquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EquiposActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EquiposActionPerformed
 
-    private void botonCargarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarUsuariosMouseClicked
+    private void botonCargarTablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarTablaUsuariosMouseClicked
         cargarTablaUsuarios();
-    }//GEN-LAST:event_botonCargarUsuariosMouseClicked
+    }//GEN-LAST:event_botonCargarTablaUsuariosMouseClicked
 
     private void bajaUsuarioNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaUsuarioNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bajaUsuarioNombreActionPerformed
 
-    private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
+    private void botonEliminarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarUsuarioMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonEliminarMouseClicked
+    }//GEN-LAST:event_botonEliminarUsuarioMouseClicked
 
-    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+    private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarUsuarioActionPerformed
         bajaUsuario();
-    }//GEN-LAST:event_botonEliminarActionPerformed
+    }//GEN-LAST:event_botonEliminarUsuarioActionPerformed
 
-    private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
+    private void botonModificarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarUsuarioMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonModificarMouseClicked
+    }//GEN-LAST:event_botonModificarUsuarioMouseClicked
 
-    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+    private void botonModificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarUsuarioActionPerformed
         modificarUsuario();
-    }//GEN-LAST:event_botonModificarActionPerformed
+    }//GEN-LAST:event_botonModificarUsuarioActionPerformed
+
+    private void altaJugadorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaJugadorNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_altaJugadorNombreActionPerformed
+
+    private void botonAltaJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAltaJugadorMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAltaJugadorMouseClicked
+
+    private void bajaJugadorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaJugadorNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bajaJugadorNombreActionPerformed
+
+    private void botonEliminarJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarJugadorMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEliminarJugadorMouseClicked
+
+    private void botonEliminarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarJugadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEliminarJugadorActionPerformed
+
+    private void botonModificarJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarJugadorMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonModificarJugadorMouseClicked
+
+    private void botonModificarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarJugadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonModificarJugadorActionPerformed
+
+    private void botonCargarJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarJugadoresMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCargarJugadoresMouseClicked
+
+    private void bajaJugadorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaJugadorIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bajaJugadorIdActionPerformed
+
+    private void botonAltaJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaJugadorActionPerformed
+        altaJugador();
+    }//GEN-LAST:event_botonAltaJugadorActionPerformed
 
     /**
      * Da de alta un nuevo usuario en la base de datos
@@ -640,6 +1000,28 @@ public class Sistema extends javax.swing.JFrame {
         }
     }
 
+    private void altaJugador() {
+        Jugador nuevo = new Jugador(
+            altaJugadorNombre.getText(),
+            altaJugadorApellidos.getText(),
+            altaJugadorPosicion.getSelectedItem().toString()
+        );
+        MySQLFactory factoria = new MySQLFactory();
+        JugadorDAO jugadorDAO = factoria.getJugadorDAO();
+        try {
+            int salida = jugadorDAO.insertar(nuevo);
+            if (salida < 0) {
+                altaUsuarioRespuesta.setForeground(Color.red);
+                altaJugadorRespuesta.setText("No se ha podido dar de alta al jugador");
+            } else {
+                altaUsuarioRespuesta.setForeground(Color.blue);
+                altaJugadorRespuesta.setText("El jugador ha sido dado de alta correctamente");
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void modificarUsuario() {
         if (!bajaUsuarioId.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
@@ -653,6 +1035,8 @@ public class Sistema extends javax.swing.JFrame {
                     user.setRol(bajaUsuarioRol.getSelectedItem().toString());
                     int modificado = userDao.modificar(user);
                     if (modificado == 1) {
+
+                        bajaUsuarioRespuesta.setForeground(Color.blue);
                         bajaUsuarioRespuesta.setText("Se modificado el usuario con id " + bajaUsuarioId.getText());
                         DefaultTableModel tabla = (DefaultTableModel) tablaUsuarioListado.getModel();
                         for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -664,16 +1048,20 @@ public class Sistema extends javax.swing.JFrame {
                             }
                         }
                     } else {
+                        bajaUsuarioRespuesta.setForeground(Color.red);
                         bajaUsuarioRespuesta.setText("No se ha podido modificar el usuario");
                     }
                 } else {
+                    bajaUsuarioRespuesta.setForeground(Color.red);
                     bajaUsuarioRespuesta.setText("No se ha encontrado el usuario en la base de datos");
                 }
             } catch (NullPointerException | NamingException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+                bajaUsuarioRespuesta.setForeground(Color.red);
                 bajaUsuarioRespuesta.setText("Error al modificar el usuario");
             }
         } else {
+            bajaUsuarioRespuesta.setForeground(Color.red);
             bajaUsuarioRespuesta.setText("Debe seleccionar un usuario de la lista");
         }
     }
@@ -768,10 +1156,11 @@ public class Sistema extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                int miEntero;
+
                 new Sistema().setVisible(true);
             }
         });
@@ -781,27 +1170,44 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton Equipos;
     private javax.swing.JButton Jugadores;
     private javax.swing.JButton Usuarios;
+    private javax.swing.JTextField altaJugadorApellidos;
+    private javax.swing.JTextField altaJugadorNombre;
+    private javax.swing.JComboBox<String> altaJugadorPosicion;
+    private javax.swing.JTextField altaJugadorRespuesta;
     private javax.swing.JTextField altaUsuarioApellidos;
     private javax.swing.JTextField altaUsuarioNombre;
     private javax.swing.JTextField altaUsuarioPass;
     private javax.swing.JTextField altaUsuarioRespuesta;
     private javax.swing.JComboBox<String> altaUsuarioRol;
+    private javax.swing.JLabel apellidosBajaJugadorLabel;
     private javax.swing.JLabel apellidosBajaLabel;
+    private javax.swing.JLabel apellidosJugadorLabel;
     private javax.swing.JLabel apellidosLabel;
+    private javax.swing.JTextField bajaJugadorApellidos;
+    private javax.swing.JTextField bajaJugadorId;
+    private javax.swing.JTextField bajaJugadorNombre;
+    private javax.swing.JComboBox<String> bajaJugadorPosicion;
+    private javax.swing.JTextField bajaJugadorRespuesta;
     private javax.swing.JTextField bajaUsuarioApellidos;
     private javax.swing.JTextField bajaUsuarioId;
     private javax.swing.JTextField bajaUsuarioNombre;
     private javax.swing.JTextField bajaUsuarioPass;
     private javax.swing.JTextField bajaUsuarioRespuesta;
     private javax.swing.JComboBox<String> bajaUsuarioRol;
-    private javax.swing.JButton botonAlta;
-    private javax.swing.JButton botonCargarUsuarios;
-    private javax.swing.JButton botonEliminar;
-    private javax.swing.JButton botonModificar;
+    private javax.swing.JButton botonAltaJugador;
+    private javax.swing.JButton botonAltaUsuario;
+    private javax.swing.JButton botonCargarJugadores;
+    private javax.swing.JButton botonCargarTablaUsuarios;
+    private javax.swing.JButton botonEliminarJugador;
+    private javax.swing.JButton botonEliminarUsuario;
+    private javax.swing.JButton botonModificarJugador;
+    private javax.swing.JButton botonModificarUsuario;
     private javax.swing.JPanel botonesBajaModificacion;
+    private javax.swing.JPanel botonesBajaModificacion1;
     private javax.swing.JLabel contraseñaBajaLabel;
     private javax.swing.JLabel contraseñaBajaLabel1;
     private javax.swing.JLabel contraseñaLabel;
+    private javax.swing.JLabel idBajaJugadorLabel;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -810,21 +1216,34 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel nombreBajaJugadorLabel;
     private javax.swing.JLabel nombreBajaLabel;
+    private javax.swing.JLabel nombreJugadorLabel;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JPanel panelAlta;
+    private javax.swing.JPanel panelAlta1;
     private javax.swing.JPanel panelBaja;
+    private javax.swing.JPanel panelBaja1;
     private javax.swing.JPanel panelCuerpo;
     private javax.swing.JPanel panelLateral;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JLabel posicionJugadorLabel;
+    private javax.swing.JLabel posiciónBajaJugadorLabel;
     private javax.swing.JLabel rolBajaLabel;
     private javax.swing.JLabel rolLabel;
+    private javax.swing.JTable tablaJugadoresListado;
     private javax.swing.JTable tablaUsuarioListado;
     private javax.swing.JLabel tablaUsuariosRespuesta;
-    private javax.swing.JLabel tituloAlta;
-    private javax.swing.JLabel tituloBaja;
+    private javax.swing.JLabel tablaUsuariosRespuesta1;
+    private javax.swing.JLabel tituloAltaJugador;
+    private javax.swing.JLabel tituloAltaUsuario;
+    private javax.swing.JLabel tituloBajaJugador;
+    private javax.swing.JLabel tituloBajaUsuarios;
+    private javax.swing.JLabel tituloTablaJugadores;
     private javax.swing.JLabel tituloTablaUsuarios;
     // End of variables declaration//GEN-END:variables
 }
