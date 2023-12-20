@@ -660,6 +660,7 @@ public class Sistema extends javax.swing.JFrame {
                                 tabla.setValueAt(user.getNombre(), i, 0);
                                 tabla.setValueAt(user.getApellidos(), i, 1);
                                 tabla.setValueAt(user.getRol(), i, 2);
+                                break;
                             }
                         }
                     } else {
@@ -691,6 +692,7 @@ public class Sistema extends javax.swing.JFrame {
                         for (int i = 0; i < tabla.getRowCount(); i++) {
                             if (tabla.getValueAt(i, 3).toString().equals(bajaUsuarioId.getText())) {
                                 tabla.removeRow(i);
+                                break;
                             }
                         }
                     } else {
