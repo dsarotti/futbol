@@ -25,8 +25,6 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        
-        
     }
 
     /**
@@ -34,7 +32,8 @@ public class Login extends javax.swing.JFrame {
      * campos de texto sea válida y se corresponda con un usuario de la base de
      * datos.
      */
-    private boolean validarUsuario() {
+    private Usuario validarUsuario() {
+        Usuario usuario = null;
         if (!loginNombre.getText().isBlank()
                 && !loginNombre.getText().equals("Introduzca aquí su nombre de usuario")
                 && !loginPass.getText().isBlank()) {
@@ -43,13 +42,11 @@ public class Login extends javax.swing.JFrame {
                 String pass = loginPass.getText();
                 MySQLFactory f = new MySQLFactory();
                 UsuarioDAO usuarioDao = f.getUsuarioDAO();
-                Usuario usuario = null;
                 usuario = usuarioDao.getUsuarioByNombreContraseña(usuarioNombre, pass);
                 if (usuario == null) {
                     JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario Autenticado!");
-                    return true;
                 }
             } catch (NamingException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +54,7 @@ public class Login extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe introducir el usuario y la contraseña");
         }
-        return false;
+        return usuario;
     }
 
     /**
@@ -200,8 +197,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-        if (validarUsuario()) {
-            new Sistema().setVisible(true);
+        Usuario usuario = validarUsuario();
+        if (usuario != null) {
+            new Sistema(usuario).setVisible(true);
             setVisible(false);
         }
     }//GEN-LAST:event_loginButtonMouseClicked
