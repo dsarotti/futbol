@@ -28,6 +28,7 @@ public class Usuarios extends javax.swing.JPanel {
     public Usuarios() {
         initComponents();
         tablaUsuarioListado.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 bajaUsuarioNombre.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 0).toString());
                 bajaUsuarioApellidos.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 1).toString());
@@ -36,7 +37,7 @@ public class Usuarios extends javax.swing.JPanel {
             }
         });
     }
-/**
+    /**
      * Da de alta un nuevo usuario en la base de datos
      */
     private void altaUsuario() {
@@ -121,6 +122,8 @@ public class Usuarios extends javax.swing.JPanel {
                     if (borrado == 1) {
                         bajaUsuarioRespuesta.setText("Se borrado el usuario con id " + bajaUsuarioId.getText());
                         DefaultTableModel tabla = (DefaultTableModel) tablaUsuarioListado.getModel();
+                        
+                        //Busca el elemento que se ha borrado y lo quita de la tabla
                         for (int i = 0; i < tabla.getRowCount(); i++) {
                             if (tabla.getValueAt(i, 3).toString().equals(bajaUsuarioId.getText())) {
                                 tabla.removeRow(i);
@@ -182,8 +185,10 @@ public class Usuarios extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        panelAlta = new javax.swing.JPanel();
+        jPanelNorte = new javax.swing.JPanel();
+        panelAltaUsuarios = new javax.swing.JPanel();
         tituloAltaUsuario = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
         rolLabel = new javax.swing.JLabel();
@@ -195,13 +200,7 @@ public class Usuarios extends javax.swing.JPanel {
         altaUsuarioRol = new javax.swing.JComboBox<>();
         botonAltaUsuario = new javax.swing.JButton();
         altaUsuarioRespuesta = new javax.swing.JTextField();
-        jPanel8 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaUsuarioListado = new javax.swing.JTable();
-        tituloTablaUsuarios = new javax.swing.JLabel();
-        botonCargarTablaUsuarios = new javax.swing.JButton();
-        tablaUsuariosRespuesta = new javax.swing.JLabel();
-        panelBaja = new javax.swing.JPanel();
+        panelBajaUsuarios = new javax.swing.JPanel();
         tituloBajaUsuarios = new javax.swing.JLabel();
         nombreBajaLabel = new javax.swing.JLabel();
         rolBajaLabel = new javax.swing.JLabel();
@@ -214,28 +213,101 @@ public class Usuarios extends javax.swing.JPanel {
         bajaUsuarioId = new javax.swing.JTextField();
         bajaUsuarioRespuesta = new javax.swing.JTextField();
         contraseñaBajaLabel1 = new javax.swing.JLabel();
-        botonesBajaModificacion = new javax.swing.JPanel();
         botonEliminarUsuario = new javax.swing.JButton();
         botonModificarUsuario = new javax.swing.JButton();
+        jPanelListadoUsuarios = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaUsuarioListado = new javax.swing.JTable();
+        jPanelTituloListadoUsuarios = new javax.swing.JPanel();
+        tituloTablaUsuarios = new javax.swing.JLabel();
+        botonCargarTablaUsuarios = new javax.swing.JButton();
+        tablaUsuariosRespuesta = new javax.swing.JTextField();
+
+        setLayout(new java.awt.BorderLayout());
+
+        jPanelNorte.setLayout(new java.awt.GridBagLayout());
+
+        panelAltaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelAltaUsuarios.setLayout(new java.awt.GridBagLayout());
 
         tituloAltaUsuario.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloAltaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloAltaUsuario.setText("Alta de usuario");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(tituloAltaUsuario, gridBagConstraints);
 
         nombreLabel.setText("Nombre");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(nombreLabel, gridBagConstraints);
 
         rolLabel.setText("Rol");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(rolLabel, gridBagConstraints);
 
         apellidosLabel.setText("Apellidos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(apellidosLabel, gridBagConstraints);
 
         contraseñaLabel.setText("Contraseña");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(contraseñaLabel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 143;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(altaUsuarioApellidos, gridBagConstraints);
 
         altaUsuarioNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 altaUsuarioNombreActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 117;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(altaUsuarioNombre, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 104;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(altaUsuarioPass, gridBagConstraints);
 
         altaUsuarioRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Admin" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelAltaUsuarios.add(altaUsuarioRol, gridBagConstraints);
 
         botonAltaUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/insertarI.png"))); // NOI18N
         botonAltaUsuario.setText("Alta");
@@ -244,61 +316,202 @@ public class Usuarios extends javax.swing.JPanel {
                 botonAltaUsuarioMouseClicked(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        panelAltaUsuarios.add(botonAltaUsuario, gridBagConstraints);
 
         altaUsuarioRespuesta.setEditable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 620;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        panelAltaUsuarios.add(altaUsuarioRespuesta, gridBagConstraints);
 
-        javax.swing.GroupLayout panelAltaLayout = new javax.swing.GroupLayout(panelAlta);
-        panelAlta.setLayout(panelAltaLayout);
-        panelAltaLayout.setHorizontalGroup(
-            panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAltaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloAltaUsuario)
-                    .addGroup(panelAltaLayout.createSequentialGroup()
-                        .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(altaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombreLabel))
-                        .addGap(6, 6, 6)
-                        .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(altaUsuarioApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(apellidosLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contraseñaLabel)
-                            .addComponent(altaUsuarioPass, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelAltaLayout.createSequentialGroup()
-                                .addComponent(altaUsuarioRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botonAltaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(rolLabel)))
-                    .addComponent(altaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelAltaLayout.setVerticalGroup(
-            panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAltaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tituloAltaUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreLabel)
-                    .addComponent(apellidosLabel)
-                    .addComponent(contraseñaLabel)
-                    .addComponent(rolLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(altaUsuarioApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(altaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(altaUsuarioPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(altaUsuarioRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAltaUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(altaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanelNorte.add(panelAltaUsuarios, gridBagConstraints);
+
+        panelBajaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelBajaUsuarios.setLayout(new java.awt.GridBagLayout());
+
+        tituloBajaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloBajaUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloBajaUsuarios.setText("Baja/Modificación");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(tituloBajaUsuarios, gridBagConstraints);
+
+        nombreBajaLabel.setText("Nombre");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(nombreBajaLabel, gridBagConstraints);
+
+        rolBajaLabel.setText("Rol");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(rolBajaLabel, gridBagConstraints);
+
+        apellidosBajaLabel.setText("Apellidos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(apellidosBajaLabel, gridBagConstraints);
+
+        contraseñaBajaLabel.setText("Contraseña");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(contraseñaBajaLabel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 143;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(bajaUsuarioApellidos, gridBagConstraints);
+
+        bajaUsuarioNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bajaUsuarioNombreActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 117;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(bajaUsuarioNombre, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 104;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(bajaUsuarioPass, gridBagConstraints);
+
+        bajaUsuarioRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Admin" }));
+        bajaUsuarioRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bajaUsuarioRolActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(bajaUsuarioRol, gridBagConstraints);
+
+        bajaUsuarioId.setEditable(false);
+        bajaUsuarioId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = -18;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(bajaUsuarioId, gridBagConstraints);
+
+        bajaUsuarioRespuesta.setEditable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 642;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        panelBajaUsuarios.add(bajaUsuarioRespuesta, gridBagConstraints);
+
+        contraseñaBajaLabel1.setText("id");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(contraseñaBajaLabel1, gridBagConstraints);
+
+        botonEliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
+        botonEliminarUsuario.setText("Eliminar");
+        botonEliminarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonEliminarUsuarioMouseClicked(evt);
+            }
+        });
+        botonEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarUsuarioActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(botonEliminarUsuario, gridBagConstraints);
+
+        botonModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
+        botonModificarUsuario.setText("Modificar");
+        botonModificarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonModificarUsuarioMouseClicked(evt);
+            }
+        });
+        botonModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarUsuarioActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelBajaUsuarios.add(botonModificarUsuario, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanelNorte.add(panelBajaUsuarios, gridBagConstraints);
+
+        add(jPanelNorte, java.awt.BorderLayout.NORTH);
+
+        jPanelListadoUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelListadoUsuarios.setMinimumSize(new java.awt.Dimension(692, 110));
+        jPanelListadoUsuarios.setLayout(new java.awt.BorderLayout());
 
         tablaUsuarioListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -325,8 +538,20 @@ public class Usuarios extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tablaUsuarioListado);
 
+        jPanelListadoUsuarios.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanelTituloListadoUsuarios.setLayout(new java.awt.GridBagLayout());
+
         tituloTablaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloTablaUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloTablaUsuarios.setText("Listado de usuarios");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanelTituloListadoUsuarios.add(tituloTablaUsuarios, gridBagConstraints);
 
         botonCargarTablaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cargarI.png"))); // NOI18N
         botonCargarTablaUsuarios.setText("Cargar");
@@ -335,197 +560,31 @@ public class Usuarios extends javax.swing.JPanel {
                 botonCargarTablaUsuariosMouseClicked(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanelTituloListadoUsuarios.add(botonCargarTablaUsuarios, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tituloTablaUsuarios)
-                .addGap(136, 136, 136)
-                .addComponent(tablaUsuariosRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonCargarTablaUsuarios)
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(tituloTablaUsuarios)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonCargarTablaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tablaUsuariosRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        tituloBajaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        tituloBajaUsuarios.setText("Baja/Modificación");
-
-        nombreBajaLabel.setText("Nombre");
-
-        rolBajaLabel.setText("Rol");
-
-        apellidosBajaLabel.setText("Apellidos");
-
-        contraseñaBajaLabel.setText("Contraseña");
-
-        bajaUsuarioNombre.addActionListener(new java.awt.event.ActionListener() {
+        tablaUsuariosRespuesta.setEditable(false);
+        tablaUsuariosRespuesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaUsuarioNombreActionPerformed(evt);
+                tablaUsuariosRespuestaActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanelTituloListadoUsuarios.add(tablaUsuariosRespuesta, gridBagConstraints);
 
-        bajaUsuarioRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Admin" }));
-        bajaUsuarioRol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaUsuarioRolActionPerformed(evt);
-            }
-        });
+        jPanelListadoUsuarios.add(jPanelTituloListadoUsuarios, java.awt.BorderLayout.PAGE_START);
 
-        bajaUsuarioId.setEditable(false);
-
-        bajaUsuarioRespuesta.setEditable(false);
-
-        contraseñaBajaLabel1.setText("id");
-
-        botonEliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
-        botonEliminarUsuario.setText("Eliminar");
-        botonEliminarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonEliminarUsuarioMouseClicked(evt);
-            }
-        });
-        botonEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEliminarUsuarioActionPerformed(evt);
-            }
-        });
-
-        botonModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
-        botonModificarUsuario.setText("Modificar");
-        botonModificarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonModificarUsuarioMouseClicked(evt);
-            }
-        });
-        botonModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarUsuarioActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout botonesBajaModificacionLayout = new javax.swing.GroupLayout(botonesBajaModificacion);
-        botonesBajaModificacion.setLayout(botonesBajaModificacionLayout);
-        botonesBajaModificacionLayout.setHorizontalGroup(
-            botonesBajaModificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(botonesBajaModificacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(botonesBajaModificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonModificarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonEliminarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        botonesBajaModificacionLayout.setVerticalGroup(
-            botonesBajaModificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(botonesBajaModificacionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonModificarUsuario)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout panelBajaLayout = new javax.swing.GroupLayout(panelBaja);
-        panelBaja.setLayout(panelBajaLayout);
-        panelBajaLayout.setHorizontalGroup(
-            panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bajaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tituloBajaUsuarios)
-                    .addGroup(panelBajaLayout.createSequentialGroup()
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bajaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombreBajaLabel))
-                        .addGap(6, 6, 6)
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bajaUsuarioApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(apellidosBajaLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contraseñaBajaLabel)
-                            .addComponent(bajaUsuarioPass, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bajaUsuarioRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rolBajaLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bajaUsuarioId, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(contraseñaBajaLabel1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonesBajaModificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelBajaLayout.setVerticalGroup(
-            panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBajaLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botonesBajaModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelBajaLayout.createSequentialGroup()
-                        .addComponent(tituloBajaUsuarios)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nombreBajaLabel)
-                            .addComponent(apellidosBajaLabel)
-                            .addComponent(contraseñaBajaLabel)
-                            .addComponent(rolBajaLabel)
-                            .addComponent(contraseñaBajaLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bajaUsuarioApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bajaUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bajaUsuarioPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bajaUsuarioRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bajaUsuarioId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bajaUsuarioRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelBaja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelAlta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jPanelListadoUsuarios, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void altaUsuarioNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaUsuarioNombreActionPerformed
@@ -564,6 +623,10 @@ public class Usuarios extends javax.swing.JPanel {
         modificarUsuario();
     }//GEN-LAST:event_botonModificarUsuarioActionPerformed
 
+    private void tablaUsuariosRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaUsuariosRespuestaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaUsuariosRespuestaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField altaUsuarioApellidos;
@@ -583,20 +646,21 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JButton botonCargarTablaUsuarios;
     private javax.swing.JButton botonEliminarUsuario;
     private javax.swing.JButton botonModificarUsuario;
-    private javax.swing.JPanel botonesBajaModificacion;
     private javax.swing.JLabel contraseñaBajaLabel;
     private javax.swing.JLabel contraseñaBajaLabel1;
     private javax.swing.JLabel contraseñaLabel;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanelListadoUsuarios;
+    private javax.swing.JPanel jPanelNorte;
+    private javax.swing.JPanel jPanelTituloListadoUsuarios;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nombreBajaLabel;
     private javax.swing.JLabel nombreLabel;
-    private javax.swing.JPanel panelAlta;
-    private javax.swing.JPanel panelBaja;
+    private javax.swing.JPanel panelAltaUsuarios;
+    private javax.swing.JPanel panelBajaUsuarios;
     private javax.swing.JLabel rolBajaLabel;
     private javax.swing.JLabel rolLabel;
     private javax.swing.JTable tablaUsuarioListado;
-    private javax.swing.JLabel tablaUsuariosRespuesta;
+    private javax.swing.JTextField tablaUsuariosRespuesta;
     private javax.swing.JLabel tituloAltaUsuario;
     private javax.swing.JLabel tituloBajaUsuarios;
     private javax.swing.JLabel tituloTablaUsuarios;

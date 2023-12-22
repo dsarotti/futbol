@@ -32,6 +32,7 @@ public class Jugadores extends javax.swing.JPanel {
         cargarDropdownsJugadores();
         
         tablaJugadoresListado.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 bajaJugadorNombre.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 0).toString());
                 bajaJugadorApellidos.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 1).toString());
@@ -40,7 +41,7 @@ public class Jugadores extends javax.swing.JPanel {
             }
         });
     }
-    
+
     /**
      * Recibe de la base de datos los valores posibles de los menús desplegables de la pestaña Jugadores
      */
@@ -106,6 +107,44 @@ public class Jugadores extends javax.swing.JPanel {
             tablaJugadoresRespuesta.setText("Se cargaron los jugadores");
         }
     }
+    
+    /**
+     * Elimina el jugador seleccionado de la base de datos
+     */
+    private void bajaJugador(){
+         if (!bajaJugadorId.getText().isBlank()) {
+            MySQLFactory factoria = new MySQLFactory();
+            JugadorDAO jugadorDao = factoria.getJugadorDAO();
+            try {
+                Jugador jugador = jugadorDao.getJugadorById(Integer.parseInt(bajaJugadorId.getText()));
+                if (jugador != null) {
+                    int borrado = jugadorDao.borrar(jugador);
+                    if (borrado == 1) {
+                        bajaJugadorRespuesta.setText("Se borrado el jugador con id " + bajaJugadorId.getText());
+
+                        //Busca el elemento que se ha borrado y lo quita de la tabla
+                        DefaultTableModel tabla = (DefaultTableModel) tablaJugadoresListado.getModel();
+                        for (int i = 0; i < tabla.getRowCount(); i++) {
+                            if (tabla.getValueAt(i, 3).toString().equals(bajaJugadorId.getText())) {
+                                tabla.removeRow(i);
+                                break;
+                            }
+                        }
+                    } else {
+                        bajaJugadorRespuesta.setText("No se ha podido borrar el usuario");
+                    }
+                } else {
+                    bajaJugadorRespuesta.setText("No se ha encontrado el jugador en la base de datos");
+                }
+            } catch (NullPointerException | NamingException ex) {
+                Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+                bajaJugadorRespuesta.setText("Error al borrar el jugador");
+            }
+        } else {
+            bajaJugadorRespuesta.setText("Debe seleccionar un jugador de la lista");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,7 +179,6 @@ public class Jugadores extends javax.swing.JPanel {
         altaJugadorPosicion = new javax.swing.JComboBox<>();
         botonAltaJugador = new javax.swing.JButton();
         altaJugadorRespuesta = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanelListadoJugadores = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaJugadoresListado = new javax.swing.JTable();
@@ -154,10 +192,12 @@ public class Jugadores extends javax.swing.JPanel {
         setAlignmentY(0.0F);
         setLayout(new java.awt.BorderLayout(20, 5));
 
-        jPaneles.setPreferredSize(new java.awt.Dimension(900, 300));
+        jPaneles.setPreferredSize(new java.awt.Dimension(931, 339));
+        jPaneles.setLayout(new java.awt.GridBagLayout());
 
         jPanelBajaJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanelBajaJugadores.setPreferredSize(new java.awt.Dimension(900, 130));
+        jPanelBajaJugadores.setMinimumSize(new java.awt.Dimension(911, 161));
+        jPanelBajaJugadores.setPreferredSize(new java.awt.Dimension(911, 161));
         jPanelBajaJugadores.setLayout(new java.awt.GridBagLayout());
 
         tituloBajaJugador.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -165,8 +205,8 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 13;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(tituloBajaJugador, gridBagConstraints);
 
         nombreBajaJugadorLabel.setText("Nombre");
@@ -226,7 +266,6 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 30;
@@ -238,10 +277,10 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanelBajaJugadores.add(bajaJugadorRespuesta, gridBagConstraints);
 
         idBajaJugadorLabel.setText("id");
@@ -265,7 +304,7 @@ public class Jugadores extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 8;
@@ -286,7 +325,7 @@ public class Jugadores extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -304,7 +343,16 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(bajaJugadorPosicion, gridBagConstraints);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPaneles.add(jPanelBajaJugadores, gridBagConstraints);
+
         jPanelAltaJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelAltaJugadores.setMinimumSize(new java.awt.Dimension(824, 138));
         jPanelAltaJugadores.setLayout(new java.awt.GridBagLayout());
 
         tituloAltaJugador.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -314,7 +362,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.insets = new java.awt.Insets(6, 20, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelAltaJugadores.add(tituloAltaJugador, gridBagConstraints);
 
         nombreJugadorLabel.setText("Nombre");
@@ -402,34 +450,20 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 10, 17, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanelAltaJugadores.add(altaJugadorRespuesta, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 800;
-        jPanelAltaJugadores.add(jSeparator1, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPaneles.add(jPanelAltaJugadores, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanelesLayout = new javax.swing.GroupLayout(jPaneles);
-        jPaneles.setLayout(jPanelesLayout);
-        jPanelesLayout.setHorizontalGroup(
-            jPanelesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBajaJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
-            .addComponent(jPanelAltaJugadores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanelesLayout.setVerticalGroup(
-            jPanelesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelesLayout.createSequentialGroup()
-                .addComponent(jPanelAltaJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelBajaJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
-        );
+        add(jPaneles, java.awt.BorderLayout.NORTH);
 
-        add(jPaneles, java.awt.BorderLayout.PAGE_START);
-
+        jPanelListadoJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelListadoJugadores.setPreferredSize(new java.awt.Dimension(849, 300));
         jPanelListadoJugadores.setLayout(new java.awt.BorderLayout());
 
@@ -534,7 +568,7 @@ public class Jugadores extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEliminarJugadorMouseClicked
 
     private void botonEliminarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarJugadorActionPerformed
-        // TODO add your handling code here:
+        bajaJugador();
     }//GEN-LAST:event_botonEliminarJugadorActionPerformed
 
     private void botonModificarJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarJugadorMouseClicked
@@ -581,7 +615,6 @@ public class Jugadores extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelListadoJugadores;
     private javax.swing.JPanel jPaneles;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nombreBajaJugadorLabel;
     private javax.swing.JLabel nombreJugadorLabel;
     private javax.swing.JLabel posicionJugadorLabel;

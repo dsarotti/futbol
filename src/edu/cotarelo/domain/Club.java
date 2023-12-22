@@ -49,7 +49,6 @@ public class Club {
 	}
 	public void setIdClub(String idClub) {
 		this.IdClub = idClub;
-	
 	}
 
 	
