@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package edu.cotarelo.sistema;
+package edu.cotarelo.sistema.vistas;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
 import edu.cotarelo.dao.objects.JugadorDAO;
 import edu.cotarelo.domain.Jugador;
+import edu.cotarelo.sistema.Sistema;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -21,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author SrSar
  */
-public class Jugadores extends javax.swing.JPanel {
+public class VistaJugadores extends javax.swing.JPanel {
 
     /**
      * Creates new form Jugadores
      */
-    public Jugadores() {
+    public VistaJugadores() {
         initComponents();
         
         cargarDropdownsJugadores();
@@ -187,17 +188,17 @@ public class Jugadores extends javax.swing.JPanel {
         botonCargarJugadores = new javax.swing.JButton();
         tablaJugadoresRespuesta = new javax.swing.JTextField();
 
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setAlignmentX(0.0F);
-        setAlignmentY(0.0F);
-        setLayout(new java.awt.BorderLayout(20, 5));
+        setMinimumSize(new java.awt.Dimension(881, 443));
+        setPreferredSize(new java.awt.Dimension(940, 809));
+        setLayout(new java.awt.BorderLayout());
 
-        jPaneles.setPreferredSize(new java.awt.Dimension(931, 339));
+        jPaneles.setMinimumSize(new java.awt.Dimension(881, 333));
+        jPaneles.setPreferredSize(new java.awt.Dimension(940, 333));
         jPaneles.setLayout(new java.awt.GridBagLayout());
 
         jPanelBajaJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanelBajaJugadores.setMinimumSize(new java.awt.Dimension(911, 161));
-        jPanelBajaJugadores.setPreferredSize(new java.awt.Dimension(911, 161));
+        jPanelBajaJugadores.setMinimumSize(new java.awt.Dimension(750, 161));
+        jPanelBajaJugadores.setPreferredSize(new java.awt.Dimension(920, 161));
         jPanelBajaJugadores.setLayout(new java.awt.GridBagLayout());
 
         tituloBajaJugador.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -213,7 +214,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(nombreBajaJugadorLabel, gridBagConstraints);
 
@@ -221,7 +222,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(apellidosBajaJugadorLabel, gridBagConstraints);
 
@@ -229,7 +230,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(posiciónBajaJugadorLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -287,7 +288,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(idBajaJugadorLabel, gridBagConstraints);
 
@@ -347,12 +348,12 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPaneles.add(jPanelBajaJugadores, gridBagConstraints);
 
         jPanelAltaJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanelAltaJugadores.setMinimumSize(new java.awt.Dimension(824, 138));
+        jPanelAltaJugadores.setMinimumSize(new java.awt.Dimension(750, 138));
+        jPanelAltaJugadores.setPreferredSize(new java.awt.Dimension(920, 132));
         jPanelAltaJugadores.setLayout(new java.awt.GridBagLayout());
 
         tituloAltaJugador.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -369,7 +370,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelAltaJugadores.add(nombreJugadorLabel, gridBagConstraints);
 
@@ -377,7 +378,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelAltaJugadores.add(apellidosJugadorLabel, gridBagConstraints);
 
@@ -385,7 +386,7 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelAltaJugadores.add(posicionJugadorLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -457,14 +458,14 @@ public class Jugadores extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPaneles.add(jPanelAltaJugadores, gridBagConstraints);
 
         add(jPaneles, java.awt.BorderLayout.NORTH);
 
         jPanelListadoJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanelListadoJugadores.setPreferredSize(new java.awt.Dimension(849, 300));
+        jPanelListadoJugadores.setMinimumSize(new java.awt.Dimension(692, 110));
+        jPanelListadoJugadores.setPreferredSize(new java.awt.Dimension(456, 476));
         jPanelListadoJugadores.setLayout(new java.awt.BorderLayout());
 
         tablaJugadoresListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -495,14 +496,21 @@ public class Jugadores extends javax.swing.JPanel {
 
         jPanelListadoJugadores.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(688, 90));
-        jPanel1.setPreferredSize(new java.awt.Dimension(900, 65));
+        jPanel1.setMinimumSize(new java.awt.Dimension(450, 70));
+        jPanel1.setPreferredSize(new java.awt.Dimension(450, 70));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         tituloTablaJugadores.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tituloTablaJugadores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloTablaJugadores.setText("Listado de jugadores");
+        tituloTablaJugadores.setMaximumSize(new java.awt.Dimension(360, 48));
+        tituloTablaJugadores.setMinimumSize(new java.awt.Dimension(360, 48));
+        tituloTablaJugadores.setPreferredSize(new java.awt.Dimension(360, 48));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanel1.add(tituloTablaJugadores, gridBagConstraints);
 

@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
      * Comprueba que la combinación de usuario y contraseña escrita en los
      * campos de texto sea válida y se corresponda con un usuario de la base de
      * datos.
+     * @return Un usuario si la validación es correcta, null en caso contrario.
      */
     private Usuario validarUsuario() {
         Usuario usuario = null;

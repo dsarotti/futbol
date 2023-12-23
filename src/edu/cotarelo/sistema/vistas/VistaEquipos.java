@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package edu.cotarelo.sistema;
+package edu.cotarelo.sistema.vistas;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
 import java.awt.event.MouseAdapter;
@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import edu.cotarelo.dao.objects.ClubDAO;
 import edu.cotarelo.domain.Club;
+import edu.cotarelo.sistema.Sistema;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import javax.swing.table.DefaultTableModel;
@@ -20,12 +21,12 @@ import java.util.logging.Logger;
  *
  * @author SrSar
  */
-public class Equipos extends javax.swing.JPanel {
+public class VistaEquipos extends javax.swing.JPanel {
 
     /**
      * Creates new form Equipos
      */
-    public Equipos() {
+    public VistaEquipos() {
         initComponents();
 
         tablaEquiposListado.addMouseListener(new MouseAdapter() {
@@ -71,9 +72,9 @@ public class Equipos extends javax.swing.JPanel {
             MySQLFactory factoria = new MySQLFactory();
             ClubDAO clubDao = factoria.getClubDAO();
             try {
-                Club club = clubDao.getClubById(bajaEquipoNombre.getText());
+                Club club = clubDao.getClubById(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 0).toString());
                 if (club != null) {
-                    Club clubAnterior = clubDao.getClubById(bajaEquipoNombre.getText());
+                    Club clubAnterior = clubDao.getClubById(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 0).toString());
 
                     club.setNombre(bajaEquipoNombre.getText());
                     club.setCampo(bajaEquipoCampo.getText());
@@ -85,7 +86,7 @@ public class Equipos extends javax.swing.JPanel {
                         bajaEquipoRespuesta.setText("Se modificado el equipo " + bajaEquipoNombre.getText());
                         DefaultTableModel tabla = (DefaultTableModel) tablaEquiposListado.getModel();
                         for (int i = 0; i < tabla.getRowCount(); i++) {
-                            if (tabla.getValueAt(i, 0).toString().equals(bajaEquipoNombre.getText())) {
+                            if (tabla.getValueAt(i, 0).toString().equals(clubAnterior.getNombre())) {
                                 tabla.setValueAt(club.getNombre(), i, 0);
                                 tabla.setValueAt(club.getCampo(), i, 1);
                                 tabla.setValueAt(club.getDescripcion(), i, 2);
@@ -216,6 +217,7 @@ public class Equipos extends javax.swing.JPanel {
         jPanelNorte.setLayout(new java.awt.GridBagLayout());
 
         panelAltaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelAltaUsuarios.setPreferredSize(new java.awt.Dimension(920, 132));
         panelAltaUsuarios.setLayout(new java.awt.GridBagLayout());
 
         tituloAltaEquipo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -232,7 +234,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelAltaUsuarios.add(nombreLabel, gridBagConstraints);
 
@@ -240,7 +242,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelAltaUsuarios.add(camposLabel, gridBagConstraints);
 
@@ -248,7 +250,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelAltaUsuarios.add(descripcionLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -320,6 +322,7 @@ public class Equipos extends javax.swing.JPanel {
         jPanelNorte.add(panelAltaUsuarios, gridBagConstraints);
 
         panelBajaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelBajaUsuarios.setPreferredSize(new java.awt.Dimension(920, 161));
         panelBajaUsuarios.setLayout(new java.awt.GridBagLayout());
 
         tituloBajaEquipos.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -336,7 +339,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(nombreBajaLabel, gridBagConstraints);
 
@@ -344,7 +347,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(campoBajaLabel, gridBagConstraints);
 
@@ -352,7 +355,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(descripcionBajaLabel, gridBagConstraints);
 
@@ -454,7 +457,7 @@ public class Equipos extends javax.swing.JPanel {
 
         tablaEquiposListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Campo", "Descripcion"
@@ -484,6 +487,9 @@ public class Equipos extends javax.swing.JPanel {
         tituloTablaEquipo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tituloTablaEquipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloTablaEquipo.setText("Listado de equipos");
+        tituloTablaEquipo.setMaximumSize(new java.awt.Dimension(360, 48));
+        tituloTablaEquipo.setMinimumSize(new java.awt.Dimension(360, 48));
+        tituloTablaEquipo.setPreferredSize(new java.awt.Dimension(360, 48));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -497,6 +503,11 @@ public class Equipos extends javax.swing.JPanel {
         botonCargarTablaEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonCargarTablaEquipoMouseClicked(evt);
+            }
+        });
+        botonCargarTablaEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarTablaEquipoActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -515,7 +526,7 @@ public class Equipos extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -554,7 +565,7 @@ public class Equipos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonModificarEquipoActionPerformed
 
     private void botonCargarTablaEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarTablaEquipoMouseClicked
-        cargarTablaEquipos();
+        
     }//GEN-LAST:event_botonCargarTablaEquipoMouseClicked
 
     private void tablaEquipoRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaEquipoRespuestaActionPerformed
@@ -564,6 +575,10 @@ public class Equipos extends javax.swing.JPanel {
     private void botonAltaEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaEquiposActionPerformed
         altaEquipo();
     }//GEN-LAST:event_botonAltaEquiposActionPerformed
+
+    private void botonCargarTablaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTablaEquipoActionPerformed
+        cargarTablaEquipos();
+    }//GEN-LAST:event_botonCargarTablaEquipoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

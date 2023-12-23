@@ -4,25 +4,8 @@
  */
 package edu.cotarelo.sistema;
 
-import edu.cotarelo.dao.factories.MySQLFactory;
-import edu.cotarelo.dao.mysql.MySQLUsuarioDAO;
-import edu.cotarelo.dao.objects.JugadorDAO;
+import edu.cotarelo.sistema.vistas.*;
 import edu.cotarelo.domain.Usuario;
-import edu.cotarelo.domain.Jugador;
-import edu.cotarelo.dao.objects.UsuarioDAO;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.NamingException;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -39,12 +22,11 @@ public class Sistema extends javax.swing.JFrame {
      */
     public Sistema(Usuario usuario) {
         initComponents();
-        if (usuario.EsAdministrador()) jTabbedPane1.addTab("Usuarios", new Usuarios());
-        jTabbedPane1.addTab("Jugadores", new Jugadores());
-        jTabbedPane1.addTab("Equipos", new Equipos());
+        if (usuario.EsAdministrador()) jTabbedPane1.addTab("Usuarios", new VistaUsuarios());
+        jTabbedPane1.addTab("Jugadores", new VistaJugadores());
+        jTabbedPane1.addTab("Equipos", new VistaEquipos());
     }
  
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package edu.cotarelo.sistema;
+package edu.cotarelo.sistema.vistas;
 
 /**
  *
  * @author SrSar
  */
-public class Partidos extends javax.swing.JPanel {
+public class VistaPartidos extends javax.swing.JPanel {
 
     /**
      * Creates new form Partidos
      */
-    public Partidos() {
+    public VistaPartidos() {
         initComponents();
     }
 

@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package edu.cotarelo.sistema;
+package edu.cotarelo.sistema.vistas;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
 import edu.cotarelo.dao.objects.UsuarioDAO;
 import edu.cotarelo.domain.Usuario;
+import edu.cotarelo.sistema.Sistema;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author SrSar
  */
-public class Usuarios extends javax.swing.JPanel {
+public class VistaUsuarios extends javax.swing.JPanel {
 
     /**
      * Creates new form Usuarios
      */
-    public Usuarios() {
+    public VistaUsuarios() {
         initComponents();
         tablaUsuarioListado.addMouseListener(new MouseAdapter() {
             @Override
@@ -228,6 +229,7 @@ public class Usuarios extends javax.swing.JPanel {
         jPanelNorte.setLayout(new java.awt.GridBagLayout());
 
         panelAltaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelAltaUsuarios.setPreferredSize(new java.awt.Dimension(920, 132));
         panelAltaUsuarios.setLayout(new java.awt.GridBagLayout());
 
         tituloAltaUsuario.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -237,8 +239,6 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelAltaUsuarios.add(tituloAltaUsuario, gridBagConstraints);
 
@@ -316,6 +316,11 @@ public class Usuarios extends javax.swing.JPanel {
                 botonAltaUsuarioMouseClicked(evt);
             }
         });
+        botonAltaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAltaUsuarioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
@@ -344,6 +349,7 @@ public class Usuarios extends javax.swing.JPanel {
         jPanelNorte.add(panelAltaUsuarios, gridBagConstraints);
 
         panelBajaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelBajaUsuarios.setPreferredSize(new java.awt.Dimension(920, 161));
         panelBajaUsuarios.setLayout(new java.awt.GridBagLayout());
 
         tituloBajaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -353,8 +359,6 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(tituloBajaUsuarios, gridBagConstraints);
 
@@ -362,7 +366,7 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(nombreBajaLabel, gridBagConstraints);
 
@@ -370,7 +374,7 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(rolBajaLabel, gridBagConstraints);
 
@@ -378,7 +382,7 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(apellidosBajaLabel, gridBagConstraints);
 
@@ -386,7 +390,7 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(contraseñaBajaLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -455,7 +459,7 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(contraseñaBajaLabel1, gridBagConstraints);
 
@@ -540,11 +544,16 @@ public class Usuarios extends javax.swing.JPanel {
 
         jPanelListadoUsuarios.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanelTituloListadoUsuarios.setMinimumSize(new java.awt.Dimension(450, 70));
+        jPanelTituloListadoUsuarios.setPreferredSize(new java.awt.Dimension(450, 70));
         jPanelTituloListadoUsuarios.setLayout(new java.awt.GridBagLayout());
 
         tituloTablaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tituloTablaUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloTablaUsuarios.setText("Listado de usuarios");
+        tituloTablaUsuarios.setMaximumSize(new java.awt.Dimension(360, 48));
+        tituloTablaUsuarios.setMinimumSize(new java.awt.Dimension(360, 48));
+        tituloTablaUsuarios.setPreferredSize(new java.awt.Dimension(360, 48));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -558,6 +567,11 @@ public class Usuarios extends javax.swing.JPanel {
         botonCargarTablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonCargarTablaUsuariosMouseClicked(evt);
+            }
+        });
+        botonCargarTablaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarTablaUsuariosActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -576,7 +590,7 @@ public class Usuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -592,11 +606,9 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_altaUsuarioNombreActionPerformed
 
     private void botonAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAltaUsuarioMouseClicked
-        altaUsuario();
     }//GEN-LAST:event_botonAltaUsuarioMouseClicked
 
     private void botonCargarTablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarTablaUsuariosMouseClicked
-        cargarTablaUsuarios();
     }//GEN-LAST:event_botonCargarTablaUsuariosMouseClicked
 
     private void bajaUsuarioNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaUsuarioNombreActionPerformed
@@ -626,6 +638,14 @@ public class Usuarios extends javax.swing.JPanel {
     private void tablaUsuariosRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaUsuariosRespuestaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tablaUsuariosRespuestaActionPerformed
+
+    private void botonAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaUsuarioActionPerformed
+        altaUsuario();
+    }//GEN-LAST:event_botonAltaUsuarioActionPerformed
+
+    private void botonCargarTablaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTablaUsuariosActionPerformed
+        cargarTablaUsuarios();
+    }//GEN-LAST:event_botonCargarTablaUsuariosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
