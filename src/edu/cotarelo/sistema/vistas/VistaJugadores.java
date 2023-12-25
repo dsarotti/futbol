@@ -6,13 +6,9 @@ package edu.cotarelo.sistema.vistas;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
 import edu.cotarelo.dao.objects.JugadorDAO;
-import edu.cotarelo.dao.objects.UsuarioDAO;
 import edu.cotarelo.domain.Jugador;
-import edu.cotarelo.domain.Usuario;
 import edu.cotarelo.sistema.Sistema;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -21,13 +17,17 @@ import javax.naming.NamingException;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * La clase VistaJugadores es una interfaz gráfica que permite gestionar la
+ * información de jugadores en una base de datos. Permite dar de alta,
+ * modificar, y dar de baja jugadores, así como cargar un listado de jugadores
+ * desde la base de datos.
  *
- * @author SrSar
+ * @author Dante Sarotti
  */
 public class VistaJugadores extends javax.swing.JPanel {
 
     /**
-     * Creates new form Jugadores
+     * Crea una nueva instancia de la clase VistaJugadores.
      */
     public VistaJugadores() {
         initComponents();
@@ -36,8 +36,8 @@ public class VistaJugadores extends javax.swing.JPanel {
     }
 
     /**
-     * Recibe de la base de datos los valores posibles de los menús desplegables
-     * de la pestaña Jugadores
+     * Carga los valores posibles de los menús desplegables de la pestaña
+     * Jugadores desde la base de datos.
      */
     private void cargarDropdownsJugadores() {
         MySQLFactory f = new MySQLFactory();
@@ -49,28 +49,40 @@ public class VistaJugadores extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Da de alta un nuevo jugador en la base de datos.
+     */
     private void altaJugador() {
-        Jugador nuevo = new Jugador(
-                altaJugadorNombre.getText(),
-                altaJugadorApellidos.getText(),
-                altaJugadorPosicion.getSelectedItem().toString()
-        );
-        MySQLFactory factoria = new MySQLFactory();
-        JugadorDAO jugadorDAO = factoria.getJugadorDAO();
-        try {
-            int salida = jugadorDAO.insertar(nuevo);
-            if (salida < 0) {
-                altaJugadorRespuesta.setForeground(Color.red);
-                altaJugadorRespuesta.setText("No se ha podido dar de alta al jugador");
-            } else {
-                altaJugadorRespuesta.setForeground(Color.blue);
-                altaJugadorRespuesta.setText("El jugador ha sido dado de alta correctamente");
+        if (altaJugadorNombre.getText().isBlank() || altaJugadorApellidos.getText().isBlank()) {
+            altaJugadorRespuesta.setForeground(Color.red);
+            altaJugadorRespuesta.setText("Debe rellenar todos los campos");
+        } else {
+            Jugador nuevo = new Jugador(
+                    altaJugadorNombre.getText(),
+                    altaJugadorApellidos.getText(),
+                    altaJugadorPosicion.getSelectedItem().toString()
+            );
+            MySQLFactory factoria = new MySQLFactory();
+            JugadorDAO jugadorDAO = factoria.getJugadorDAO();
+            try {
+                int salida = jugadorDAO.insertar(nuevo);
+                if (salida < 0) {
+                    altaJugadorRespuesta.setForeground(Color.red);
+                    altaJugadorRespuesta.setText("No se ha podido dar de alta al jugador");
+                } else {
+                    altaJugadorRespuesta.setForeground(Color.blue);
+                    altaJugadorRespuesta.setText("El jugador ha sido dado de alta correctamente");
+                }
+            } catch (NamingException ex) {
+                Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (NamingException ex) {
-            Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
+    /**
+     * Modifica un jugador en la base de datos.
+     */
     private void modificarJugador() {
         if (!bajaJugadorId.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
@@ -81,7 +93,7 @@ public class VistaJugadores extends javax.swing.JPanel {
                     jugador.setNombre(bajaJugadorNombre.getText());
                     jugador.setApellidos(bajaJugadorApellidos.getText());
                     jugador.setPosicion(bajaJugadorPosicion.getSelectedItem().toString());
-                    jugador.setIdJugador(Integer.parseInt(bajaJugadorId.getText()));
+                    jugador.setIdJugador(Integer.valueOf(bajaJugadorId.getText()));
                     int modificado = jugadorDao.modificar(jugador);
                     if (modificado == 1) {
 
@@ -117,8 +129,8 @@ public class VistaJugadores extends javax.swing.JPanel {
     }
 
     /**
-     * Solicita los datos de los jugadores de la base de datos y los presenta en
-     * el listado de jugadores
+     * Carga los jugadores desde la base de datos y los presenta en el listado
+     * de jugadores.
      */
     private void cargarTablaJugadores() {
         DefaultTableModel tm = (DefaultTableModel) tablaJugadoresListado.getModel();
@@ -283,12 +295,6 @@ public class VistaJugadores extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelBajaJugadores.add(bajaJugadorApellidos, gridBagConstraints);
-
-        bajaJugadorNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaJugadorNombreActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -300,11 +306,6 @@ public class VistaJugadores extends javax.swing.JPanel {
         jPanelBajaJugadores.add(bajaJugadorNombre, gridBagConstraints);
 
         bajaJugadorId.setEditable(false);
-        bajaJugadorId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaJugadorIdActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 3;
@@ -335,11 +336,6 @@ public class VistaJugadores extends javax.swing.JPanel {
 
         botonEliminarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
         botonEliminarJugador.setText("Eliminar");
-        botonEliminarJugador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonEliminarJugadorMouseClicked(evt);
-            }
-        });
         botonEliminarJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEliminarJugadorActionPerformed(evt);
@@ -356,11 +352,6 @@ public class VistaJugadores extends javax.swing.JPanel {
 
         botonModificarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
         botonModificarJugador.setText("Modificar");
-        botonModificarJugador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonModificarJugadorMouseClicked(evt);
-            }
-        });
         botonModificarJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonModificarJugadorActionPerformed(evt);
@@ -439,12 +430,6 @@ public class VistaJugadores extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanelAltaJugadores.add(altaJugadorApellidos, gridBagConstraints);
-
-        altaJugadorNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                altaJugadorNombreActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -466,11 +451,6 @@ public class VistaJugadores extends javax.swing.JPanel {
 
         botonAltaJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/insertarI.png"))); // NOI18N
         botonAltaJugador.setText("Alta");
-        botonAltaJugador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonAltaJugadorMouseClicked(evt);
-            }
-        });
         botonAltaJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAltaJugadorActionPerformed(evt);
@@ -480,10 +460,8 @@ public class VistaJugadores extends javax.swing.JPanel {
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 30;
-        gridBagConstraints.ipady = 39;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanelAltaJugadores.add(botonAltaJugador, gridBagConstraints);
 
         altaJugadorRespuesta.setEditable(false);
@@ -565,11 +543,6 @@ public class VistaJugadores extends javax.swing.JPanel {
 
         botonCargarJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cargarI.png"))); // NOI18N
         botonCargarJugadores.setText("Cargar");
-        botonCargarJugadores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonCargarJugadoresMouseClicked(evt);
-            }
-        });
         botonCargarJugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCargarJugadoresActionPerformed(evt);
@@ -581,11 +554,6 @@ public class VistaJugadores extends javax.swing.JPanel {
         jPanel1.add(botonCargarJugadores, gridBagConstraints);
 
         tablaJugadoresRespuesta.setEditable(false);
-        tablaJugadoresRespuesta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tablaJugadoresRespuestaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -600,37 +568,13 @@ public class VistaJugadores extends javax.swing.JPanel {
         add(jPanelListadoJugadores, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void altaJugadorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaJugadorNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_altaJugadorNombreActionPerformed
-
-    private void botonAltaJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAltaJugadorMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonAltaJugadorMouseClicked
-
     private void botonAltaJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaJugadorActionPerformed
         altaJugador();
     }//GEN-LAST:event_botonAltaJugadorActionPerformed
 
-    private void bajaJugadorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaJugadorNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bajaJugadorNombreActionPerformed
-
-    private void bajaJugadorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaJugadorIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bajaJugadorIdActionPerformed
-
-    private void botonEliminarJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarJugadorMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonEliminarJugadorMouseClicked
-
     private void botonEliminarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarJugadorActionPerformed
         bajaJugador();
     }//GEN-LAST:event_botonEliminarJugadorActionPerformed
-
-    private void botonModificarJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarJugadorMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonModificarJugadorMouseClicked
 
     private void botonModificarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarJugadorActionPerformed
         modificarJugador();
@@ -639,14 +583,6 @@ public class VistaJugadores extends javax.swing.JPanel {
     private void botonCargarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarJugadoresActionPerformed
         cargarTablaJugadores();
     }//GEN-LAST:event_botonCargarJugadoresActionPerformed
-
-    private void botonCargarJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarJugadoresMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonCargarJugadoresMouseClicked
-
-    private void tablaJugadoresRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaJugadoresRespuestaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablaJugadoresRespuestaActionPerformed
 
     private void tablaJugadoresListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJugadoresListadoMousePressed
         bajaJugadorNombre.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 0).toString());

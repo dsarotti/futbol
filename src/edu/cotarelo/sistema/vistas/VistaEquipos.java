@@ -5,8 +5,6 @@
 package edu.cotarelo.sistema.vistas;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.Color;
 import edu.cotarelo.dao.objects.ClubDAO;
 import edu.cotarelo.domain.Club;
@@ -18,13 +16,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * La clase VistaEquipos es una interfaz gráfica que permite gestionar la
+ * información de equipos en una base de datos. Permite dar de alta, modificar,
+ * y dar de baja equipos, así como cargar un listado de equipos desde la base de
+ * datos.
  *
- * @author SrSar
+ * @author Dante Sarotti
  */
 public class VistaEquipos extends javax.swing.JPanel {
 
     /**
-     * Creates new form Equipos
+     * Crea una nueva instancia de la clase VistaEquipos.
      */
     public VistaEquipos() {
         initComponents();
@@ -32,33 +34,42 @@ public class VistaEquipos extends javax.swing.JPanel {
     }
 
     /**
-     * Da de alta un nuevo equipo en la base de datos
+     * Da de alta un nuevo equipo en la base de datos.
      */
     private void altaEquipo() {
-        Club nuevo = new Club(
-                altaEquiposNombre.getText(),
-                altaEquiposCampo.getText(),
-                altaEquiposDescripcion.getText()
-        );
-        MySQLFactory factoria = new MySQLFactory();
-        ClubDAO clubDAO = factoria.getClubDAO();
-        try {
-            int salida = clubDAO.insertar(nuevo);
-            if (salida < 0) {
-                altaEquiposRespuesta.setForeground(Color.red);
-                altaEquiposRespuesta.setText("No se ha podido insertar el equipo");
-            } else {
-                altaEquiposRespuesta.setForeground(Color.blue);
-                altaEquiposRespuesta.setText("Se ha insertado el equipo");
-                altaEquiposNombre.setText("");
-                altaEquiposCampo.setText("");
-                altaEquiposDescripcion.setText("");
+        if (altaEquiposNombre.getText().isBlank() || altaEquiposCampo.getText().isBlank() || altaEquiposDescripcion.getText().isBlank()) {
+            altaEquiposRespuesta.setForeground(Color.red);
+            altaEquiposRespuesta.setText("Debe rellenar todos los campos");
+        } else {
+            Club nuevo = new Club(
+                    altaEquiposNombre.getText(),
+                    altaEquiposCampo.getText(),
+                    altaEquiposDescripcion.getText()
+            );
+            MySQLFactory factoria = new MySQLFactory();
+            ClubDAO clubDAO = factoria.getClubDAO();
+            try {
+                int salida = clubDAO.insertar(nuevo);
+                if (salida < 0) {
+                    altaEquiposRespuesta.setForeground(Color.red);
+                    altaEquiposRespuesta.setText("No se ha podido insertar el equipo");
+                } else {
+                    altaEquiposRespuesta.setForeground(Color.blue);
+                    altaEquiposRespuesta.setText("Se ha insertado el equipo");
+                    altaEquiposNombre.setText("");
+                    altaEquiposCampo.setText("");
+                    altaEquiposDescripcion.setText("");
+                }
+            } catch (NamingException e) {
+                System.out.println("Error");
             }
-        } catch (NamingException e) {
-            System.out.println("Error");
         }
+
     }
 
+    /**
+     * Modifica un equipo en la base de datos.
+     */
     private void modificarEquipo() {
         if (!bajaEquipoNombre.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
@@ -104,6 +115,9 @@ public class VistaEquipos extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Elimina el equipo seleccionado de la base de datos.
+     */
     private void bajaEquipo() {
         if (!bajaEquipoNombre.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
@@ -138,6 +152,10 @@ public class VistaEquipos extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Carga los equipos desde la base de datos y los presenta en el listado de
+     * equipos.
+     */
     private void cargarTablaEquipos() {
         DefaultTableModel tm = (DefaultTableModel) tablaEquiposListado.getModel();
         tm.getDataVector().removeAllElements();
@@ -254,12 +272,6 @@ public class VistaEquipos extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelAltaUsuarios.add(altaEquiposCampo, gridBagConstraints);
-
-        altaEquiposNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                altaEquiposNombreActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -278,11 +290,6 @@ public class VistaEquipos extends javax.swing.JPanel {
 
         botonAltaEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/insertarI.png"))); // NOI18N
         botonAltaEquipos.setText("Alta");
-        botonAltaEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonAltaEquiposMouseClicked(evt);
-            }
-        });
         botonAltaEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAltaEquiposActionPerformed(evt);
@@ -293,7 +300,6 @@ public class VistaEquipos extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 9;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelAltaUsuarios.add(botonAltaEquipos, gridBagConstraints);
 
@@ -363,12 +369,6 @@ public class VistaEquipos extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelBajaUsuarios.add(bajaEquipoCampo, gridBagConstraints);
-
-        bajaEquipoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaEquipoNombreActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -398,11 +398,6 @@ public class VistaEquipos extends javax.swing.JPanel {
 
         botonEliminarEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/eliminar.png"))); // NOI18N
         botonEliminarEquipo.setText("Eliminar");
-        botonEliminarEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonEliminarEquipoMouseClicked(evt);
-            }
-        });
         botonEliminarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEliminarEquipoActionPerformed(evt);
@@ -418,11 +413,6 @@ public class VistaEquipos extends javax.swing.JPanel {
 
         botonModificarEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/actualizarI.png"))); // NOI18N
         botonModificarEquipo.setText("Modificar");
-        botonModificarEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonModificarEquipoMouseClicked(evt);
-            }
-        });
         botonModificarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonModificarEquipoActionPerformed(evt);
@@ -502,11 +492,6 @@ public class VistaEquipos extends javax.swing.JPanel {
 
         botonCargarTablaEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cargarI.png"))); // NOI18N
         botonCargarTablaEquipo.setText("Cargar");
-        botonCargarTablaEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonCargarTablaEquipoMouseClicked(evt);
-            }
-        });
         botonCargarTablaEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCargarTablaEquipoActionPerformed(evt);
@@ -520,11 +505,6 @@ public class VistaEquipos extends javax.swing.JPanel {
         jPanelTituloListadoEquipo.add(botonCargarTablaEquipo, gridBagConstraints);
 
         tablaEquipoRespuesta.setEditable(false);
-        tablaEquipoRespuesta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tablaEquipoRespuestaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -539,40 +519,13 @@ public class VistaEquipos extends javax.swing.JPanel {
         add(jPanelListadoUsuarios, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void altaEquiposNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaEquiposNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_altaEquiposNombreActionPerformed
-
-    private void botonAltaEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAltaEquiposMouseClicked
-    }//GEN-LAST:event_botonAltaEquiposMouseClicked
-
-    private void bajaEquipoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaEquipoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bajaEquipoNombreActionPerformed
-
-    private void botonEliminarEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarEquipoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonEliminarEquipoMouseClicked
-
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
         bajaEquipo();
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
 
-    private void botonModificarEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarEquipoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonModificarEquipoMouseClicked
-
     private void botonModificarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEquipoActionPerformed
         modificarEquipo();
     }//GEN-LAST:event_botonModificarEquipoActionPerformed
-
-    private void botonCargarTablaEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarTablaEquipoMouseClicked
-
-    }//GEN-LAST:event_botonCargarTablaEquipoMouseClicked
-
-    private void tablaEquipoRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaEquipoRespuestaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablaEquipoRespuestaActionPerformed
 
     private void botonAltaEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaEquiposActionPerformed
         altaEquipo();
@@ -582,6 +535,9 @@ public class VistaEquipos extends javax.swing.JPanel {
         cargarTablaEquipos();
     }//GEN-LAST:event_botonCargarTablaEquipoActionPerformed
 
+    /**
+     * Maneja el evento de ratón para seleccionar un equipo de la tabla.
+     */
     private void tablaEquiposListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEquiposListadoMousePressed
         bajaEquipoNombre.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 0).toString());
         bajaEquipoCampo.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 1).toString());

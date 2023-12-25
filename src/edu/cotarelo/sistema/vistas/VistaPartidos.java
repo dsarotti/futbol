@@ -7,14 +7,10 @@ package edu.cotarelo.sistema.vistas;
 import edu.cotarelo.dao.factories.MySQLFactory;
 import edu.cotarelo.dao.objects.PartidoDAO;
 import edu.cotarelo.dao.objects.ClubDAO;
-import edu.cotarelo.dao.objects.JugadorDAO;
 import edu.cotarelo.domain.Club;
-import edu.cotarelo.domain.Jugador;
 import edu.cotarelo.domain.Partido;
 import edu.cotarelo.sistema.Sistema;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,8 +20,12 @@ import javax.naming.NamingException;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * La clase VistaPartidos es una interfaz gráfica que permite gestionar la
+ * información de partidos en una base de datos. Permite dar de alta, modificar,
+ * y dar de baja partidos, así como cargar un listado de partidos desde la base
+ * de datos.
  *
- * @author SrSar
+ * @author Dante Sarotti
  */
 public class VistaPartidos extends javax.swing.JPanel {
 
@@ -41,6 +41,9 @@ public class VistaPartidos extends javax.swing.JPanel {
         cargarDropdowns();
     }
 
+    /**
+     * Carga los equipos en los dropdowns de alta y baja partidos.
+     */
     private void cargarDropdowns() {
 
         MySQLFactory factory = new MySQLFactory();
@@ -62,6 +65,9 @@ public class VistaPartidos extends javax.swing.JPanel {
         bajaPartidoEquipo2.setSelectedIndex(-1);
     }
 
+    /**
+     * Da de alta un nuevo partido en la base de datos.
+     */
     private void altaPartido() {
         MySQLFactory factory = new MySQLFactory();
         ClubDAO equipo = factory.getClubDAO();
@@ -91,6 +97,9 @@ public class VistaPartidos extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Carga los partidos desde la base de datos y los presenta en la tabla.
+     */
     private void cargarTablaPartidos() {
         DefaultTableModel tm = (DefaultTableModel) tablaPartidosListado.getModel();
         tm.getDataVector().removeAllElements();
@@ -118,6 +127,9 @@ public class VistaPartidos extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Da de baja un partido en la base de datos.
+     */
     private void bajaPartido() {
         MySQLFactory factoria = new MySQLFactory();
         PartidoDAO partidoDAO = factoria.getPartidoDAO();
@@ -146,6 +158,60 @@ public class VistaPartidos extends javax.swing.JPanel {
         } catch (NamingException ex) {
             Logger.getLogger(VistaPartidos.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * Modifica un partido en la base de datos.
+     */
+    private void modificarPartido() {
+        if (bajaPartidoEquipo1.getSelectedItem() == null || bajaPartidoEquipo2.getSelectedItem() == null) {
+            bajaPartidoRespuesta.setForeground(Color.red);
+            bajaPartidoRespuesta.setText("Debe seleccionar un partido de la lista");
+        } else {
+            if (bajaPartidoEquipo1.getSelectedItem().toString().isBlank() || bajaPartidoEquipo2.getSelectedItem().toString().isBlank()) {
+                bajaPartidoRespuesta.setForeground(Color.red);
+                bajaPartidoRespuesta.setText("Debe seleccionar ambos equipos");
+            } else if (bajaPartidoEquipo1.getSelectedItem().toString().equals(bajaPartidoEquipo2.getSelectedItem().toString())) {
+                bajaPartidoRespuesta.setForeground(Color.red);
+                bajaPartidoRespuesta.setText("Los equipos deben ser distintos");
+            } else if (bajaPartidoEquipo1.getSelectedItem().toString().equals(tablaPartidosListado.getModel().getValueAt(tablaPartidosListado.getSelectedRow(), 0).toString())
+                    && bajaPartidoEquipo2.getSelectedItem().toString().equals(tablaPartidosListado.getModel().getValueAt(tablaPartidosListado.getSelectedRow(), 1).toString())) {
+
+                bajaPartidoRespuesta.setForeground(Color.red);
+                bajaPartidoRespuesta.setText("No se ha modificado el partido");
+            } else {
+                MySQLFactory factoria = new MySQLFactory();
+                PartidoDAO partidoDAO = factoria.getPartidoDAO();
+                ClubDAO clubDAO = factoria.getClubDAO();
+                try {
+                    Partido viejoPartido = partidoDAO.getPartidoById(tablaPartidosListado.getModel().getValueAt(tablaPartidosListado.getSelectedRow(), 0).toString(), tablaPartidosListado.getModel().getValueAt(tablaPartidosListado.getSelectedRow(), 1).toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bajaPartidoFecha.getText()));
+                    Club equipoNuevoPartido1 = clubDAO.getClubById(bajaPartidoEquipo1.getSelectedItem().toString());
+                    Club equipoNuevoPartido2 = clubDAO.getClubById(bajaPartidoEquipo2.getSelectedItem().toString());
+                    Partido nuevoPartido = new Partido(equipoNuevoPartido1, equipoNuevoPartido2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bajaPartidoFecha.getText()));
+                    if (partidoDAO.modificar(viejoPartido, nuevoPartido) < 1) {
+                        bajaPartidoRespuesta.setForeground(Color.red);
+                        bajaPartidoRespuesta.setText("No se ha podido modificar el partido");
+                    } else {
+                        //actualizar tabla
+                        DefaultTableModel tabla = (DefaultTableModel) tablaPartidosListado.getModel();
+                        for (int i = 0; i < tabla.getRowCount(); i++) {
+                            if (tabla.getValueAt(i, 0).toString().equals(viejoPartido.getIdClub1().getIdClub()) && tabla.getValueAt(i, 1).toString().equals(viejoPartido.getIdClub2().getIdClub()) && tabla.getValueAt(i, 2).toString().equals(bajaPartidoFecha.getText())) {
+                                tabla.setValueAt(equipoNuevoPartido1.getIdClub(), i, 0);
+                                tabla.setValueAt(equipoNuevoPartido2.getIdClub(), i, 1);
+                                break;
+                            }
+                        }
+
+                        //actualizar mensaje
+                        bajaPartidoRespuesta.setForeground(Color.blue);
+                        bajaPartidoRespuesta.setText("El partido se ha modificado correctamente");
+                    }
+                } catch (ParseException | NamingException ex) {
+                    Logger.getLogger(VistaPartidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
     }
 
     /**
@@ -488,7 +554,7 @@ public class VistaPartidos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEliminarPartidoActionPerformed
 
     private void botonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPartidoActionPerformed
-        // TODO add your handling code here:
+        modificarPartido();
     }//GEN-LAST:event_botonModificarPartidoActionPerformed
 
     private void botonAltaPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaPartidoActionPerformed

@@ -25,7 +25,6 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        
     }
 
     /**
@@ -38,10 +37,10 @@ public class Login extends javax.swing.JFrame {
         Usuario usuario = null;
         if (!loginNombre.getText().isBlank()
                 && !loginNombre.getText().equals("Introduzca aquí su nombre de usuario")
-                && !loginPass.getText().isBlank()) {
+                && !String.valueOf(loginPass.getPassword()).isBlank()) {
             try {
                 String usuarioNombre = loginNombre.getText();
-                String pass = loginPass.getText();
+                String pass = String.valueOf(loginPass.getPassword());
                 MySQLFactory f = new MySQLFactory();
                 UsuarioDAO usuarioDao = f.getUsuarioDAO();
                 usuario = usuarioDao.getUsuarioByNombreContraseña(usuarioNombre, pass);
@@ -68,32 +67,39 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        loginPass = new javax.swing.JPasswordField();
         loginTitulo = new javax.swing.JLabel();
-        loginNombreTitulo = new javax.swing.JLabel();
         loginNombre = new javax.swing.JTextField();
-        loginPassTitulo = new javax.swing.JLabel();
-        loginPass = new javax.swing.JTextField();
-        balonAzul = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
+        balonAzul = new javax.swing.JLabel();
         cesped = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(680, 570));
+        setMinimumSize(new java.awt.Dimension(680, 570));
+        setPreferredSize(new java.awt.Dimension(680, 570));
+        setResizable(false);
+        setSize(new java.awt.Dimension(680, 570));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        loginPass.setBackground(new java.awt.Color(0, 153, 51));
+        loginPass.setForeground(new java.awt.Color(255, 255, 255));
+        loginPass.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        loginPass.setCaretColor(new java.awt.Color(255, 255, 255));
+        getContentPane().add(loginPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 390, 80));
+
+        loginTitulo.setBackground(new java.awt.Color(107, 199, 0));
         loginTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        loginTitulo.setForeground(new java.awt.Color(0, 0, 102));
+        loginTitulo.setForeground(new java.awt.Color(255, 255, 255));
         loginTitulo.setText("Acceso para usuarios");
-        getContentPane().add(loginTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        loginTitulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(loginTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
-        loginNombreTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        loginNombreTitulo.setForeground(new java.awt.Color(0, 0, 204));
-        loginNombreTitulo.setText("NOMBRE");
-        getContentPane().add(loginNombreTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
-
-        loginNombre.setBackground(new java.awt.Color(0, 204, 0));
+        loginNombre.setBackground(new java.awt.Color(0, 153, 0));
         loginNombre.setForeground(new java.awt.Color(255, 255, 255));
         loginNombre.setText("Introduzca aquí su nombre de usuario");
-        loginNombre.setBorder(null);
+        loginNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        loginNombre.setCaretColor(new java.awt.Color(255, 255, 255));
         loginNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 loginNombreFocusGained(evt);
@@ -107,34 +113,7 @@ public class Login extends javax.swing.JFrame {
                 loginNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(loginNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 390, 40));
-
-        loginPassTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        loginPassTitulo.setForeground(new java.awt.Color(0, 0, 204));
-        loginPassTitulo.setText("CONTRASEÑA");
-        getContentPane().add(loginPassTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
-
-        loginPass.setBackground(new java.awt.Color(0, 204, 0));
-        loginPass.setForeground(new java.awt.Color(255, 255, 255));
-        loginPass.setText("Introduzca aquí su contraseña");
-        loginPass.setBorder(null);
-        loginPass.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                loginPassFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                loginPassFocusLost(evt);
-            }
-        });
-        loginPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginPassActionPerformed(evt);
-            }
-        });
-        getContentPane().add(loginPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 390, 40));
-
-        balonAzul.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/balon_azul.png"))); // NOI18N
-        getContentPane().add(balonAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 150, 150));
+        getContentPane().add(loginNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 390, 80));
 
         loginButton.setBackground(new java.awt.Color(51, 51, 255));
         loginButton.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -150,7 +129,10 @@ public class Login extends javax.swing.JFrame {
                 loginButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 460, 200, 70));
+        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 200, 70));
+
+        balonAzul.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/balon.jpg"))); // NOI18N
+        getContentPane().add(balonAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 350, 400));
 
         cesped.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cesped.jpeg"))); // NOI18N
         getContentPane().add(cesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 570));
@@ -161,10 +143,6 @@ public class Login extends javax.swing.JFrame {
     private void loginNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loginNombreActionPerformed
-
-    private void loginPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loginPassActionPerformed
 
     private void loginNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginNombreFocusGained
         if (loginNombre.getText().equals("Introduzca aquí su nombre de usuario")) {
@@ -179,20 +157,6 @@ public class Login extends javax.swing.JFrame {
             loginNombre.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_loginNombreFocusLost
-
-    private void loginPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginPassFocusGained
-        if (loginPass.getText().equals("Introduzca aquí su contraseña")) {
-            loginPass.setText("");
-            loginPass.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_loginPassFocusGained
-
-    private void loginPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginPassFocusLost
-        if (loginPass.getText().equals("")) {
-            loginPass.setText("Introduzca aquí su contraseña");
-            loginPass.setForeground(Color.WHITE);
-        }
-    }//GEN-LAST:event_loginPassFocusLost
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
@@ -236,7 +200,7 @@ public class Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() {                
                 new Login().setVisible(true);
             }
         });
@@ -247,9 +211,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel cesped;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField loginNombre;
-    private javax.swing.JLabel loginNombreTitulo;
-    private javax.swing.JTextField loginPass;
-    private javax.swing.JLabel loginPassTitulo;
+    private javax.swing.JPasswordField loginPass;
     private javax.swing.JLabel loginTitulo;
     // End of variables declaration//GEN-END:variables
 }

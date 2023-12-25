@@ -84,7 +84,7 @@ public class MySQLPartidoDAO implements PartidoDAO {
 		if(estaPartidoEnBBDD(partido)&&!estaPartidoEnBBDD(nuevopartido)) {
 			try {
 				if(connection.abreConexion(null)) {					
-					String sql = "UPDATE partidos SET IdClub1 = '"+nuevopartido.getIdClub1().getNombre()+"', IdClub2='"+ nuevopartido.getIdClub2().getNombre()+"' WHERE partidos.IdClub1 ='"+partido.getIdClub1().getNombre()+"' AND partidos.IdClub2 ='"+partido.getIdClub2().getNombre()+"'";
+					String sql = "UPDATE partidos SET IdClub1 = '"+nuevopartido.getIdClub1().getNombre()+"', IdClub2='"+ nuevopartido.getIdClub2().getNombre()+"' WHERE partidos.IdClub1 ='"+partido.getIdClub1().getNombre()+"' AND partidos.IdClub2 ='"+partido.getIdClub2().getNombre()+"'and fecha='"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(partido.getfecha())+"'" ;
 					ps = connection.pStatementGK(sql,Statement.NO_GENERATED_KEYS);					
 					if (ps!=null) {
 						int rowAffected = ps.executeUpdate();
