@@ -29,14 +29,6 @@ public class VistaEquipos extends javax.swing.JPanel {
     public VistaEquipos() {
         initComponents();
 
-        tablaEquiposListado.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                bajaEquipoNombre.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 0).toString());
-                bajaEquipoCampo.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 1).toString());
-                bajaEquipoDescripcion.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 2).toString());
-            }
-        });
     }
 
     /**
@@ -214,8 +206,10 @@ public class VistaEquipos extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanelNorte.setBackground(new java.awt.Color(0, 102, 51));
         jPanelNorte.setLayout(new java.awt.GridBagLayout());
 
+        panelAltaUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         panelAltaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelAltaUsuarios.setPreferredSize(new java.awt.Dimension(920, 132));
         panelAltaUsuarios.setLayout(new java.awt.GridBagLayout());
@@ -321,6 +315,7 @@ public class VistaEquipos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanelNorte.add(panelAltaUsuarios, gridBagConstraints);
 
+        panelBajaUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         panelBajaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBajaUsuarios.setPreferredSize(new java.awt.Dimension(920, 161));
         panelBajaUsuarios.setLayout(new java.awt.GridBagLayout());
@@ -451,6 +446,7 @@ public class VistaEquipos extends javax.swing.JPanel {
 
         add(jPanelNorte, java.awt.BorderLayout.NORTH);
 
+        jPanelListadoUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         jPanelListadoUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelListadoUsuarios.setMinimumSize(new java.awt.Dimension(692, 110));
         jPanelListadoUsuarios.setLayout(new java.awt.BorderLayout());
@@ -478,10 +474,16 @@ public class VistaEquipos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tablaEquiposListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaEquiposListadoMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaEquiposListado);
 
         jPanelListadoUsuarios.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanelTituloListadoEquipo.setBackground(new java.awt.Color(0, 153, 51));
         jPanelTituloListadoEquipo.setLayout(new java.awt.GridBagLayout());
 
         tituloTablaEquipo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -565,7 +567,7 @@ public class VistaEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonModificarEquipoActionPerformed
 
     private void botonCargarTablaEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCargarTablaEquipoMouseClicked
-        
+
     }//GEN-LAST:event_botonCargarTablaEquipoMouseClicked
 
     private void tablaEquipoRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaEquipoRespuestaActionPerformed
@@ -579,6 +581,12 @@ public class VistaEquipos extends javax.swing.JPanel {
     private void botonCargarTablaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTablaEquipoActionPerformed
         cargarTablaEquipos();
     }//GEN-LAST:event_botonCargarTablaEquipoActionPerformed
+
+    private void tablaEquiposListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEquiposListadoMousePressed
+        bajaEquipoNombre.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 0).toString());
+        bajaEquipoCampo.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 1).toString());
+        bajaEquipoDescripcion.setText(tablaEquiposListado.getModel().getValueAt(tablaEquiposListado.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tablaEquiposListadoMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -28,16 +28,8 @@ public class VistaUsuarios extends javax.swing.JPanel {
      */
     public VistaUsuarios() {
         initComponents();
-        tablaUsuarioListado.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                bajaUsuarioNombre.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 0).toString());
-                bajaUsuarioApellidos.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 1).toString());
-                bajaUsuarioRol.setSelectedIndex(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 2).toString().equalsIgnoreCase("normal") ? 1 : 0);
-                bajaUsuarioId.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 3).toString());
-            }
-        });
     }
+
     /**
      * Da de alta un nuevo usuario en la base de datos
      */
@@ -67,7 +59,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
             System.out.println("Error");
         }
     }
-    
+
     private void modificarUsuario() {
         if (!bajaUsuarioId.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
@@ -111,7 +103,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
             bajaUsuarioRespuesta.setText("Debe seleccionar un usuario de la lista");
         }
     }
-    
+
     private void bajaUsuario() {
         if (!bajaUsuarioId.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
@@ -123,7 +115,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
                     if (borrado == 1) {
                         bajaUsuarioRespuesta.setText("Se borrado el usuario con id " + bajaUsuarioId.getText());
                         DefaultTableModel tabla = (DefaultTableModel) tablaUsuarioListado.getModel();
-                        
+
                         //Busca el elemento que se ha borrado y lo quita de la tabla
                         for (int i = 0; i < tabla.getRowCount(); i++) {
                             if (tabla.getValueAt(i, 3).toString().equals(bajaUsuarioId.getText())) {
@@ -226,8 +218,10 @@ public class VistaUsuarios extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanelNorte.setBackground(new java.awt.Color(0, 102, 51));
         jPanelNorte.setLayout(new java.awt.GridBagLayout());
 
+        panelAltaUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         panelAltaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelAltaUsuarios.setPreferredSize(new java.awt.Dimension(920, 132));
         panelAltaUsuarios.setLayout(new java.awt.GridBagLayout());
@@ -348,6 +342,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanelNorte.add(panelAltaUsuarios, gridBagConstraints);
 
+        panelBajaUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         panelBajaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBajaUsuarios.setPreferredSize(new java.awt.Dimension(920, 161));
         panelBajaUsuarios.setLayout(new java.awt.GridBagLayout());
@@ -513,6 +508,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
 
         add(jPanelNorte, java.awt.BorderLayout.NORTH);
 
+        jPanelListadoUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         jPanelListadoUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelListadoUsuarios.setMinimumSize(new java.awt.Dimension(692, 110));
         jPanelListadoUsuarios.setLayout(new java.awt.BorderLayout());
@@ -540,10 +536,16 @@ public class VistaUsuarios extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tablaUsuarioListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaUsuarioListadoMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaUsuarioListado);
 
         jPanelListadoUsuarios.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanelTituloListadoUsuarios.setBackground(new java.awt.Color(0, 153, 51));
         jPanelTituloListadoUsuarios.setMinimumSize(new java.awt.Dimension(450, 70));
         jPanelTituloListadoUsuarios.setPreferredSize(new java.awt.Dimension(450, 70));
         jPanelTituloListadoUsuarios.setLayout(new java.awt.GridBagLayout());
@@ -646,6 +648,13 @@ public class VistaUsuarios extends javax.swing.JPanel {
     private void botonCargarTablaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTablaUsuariosActionPerformed
         cargarTablaUsuarios();
     }//GEN-LAST:event_botonCargarTablaUsuariosActionPerformed
+
+    private void tablaUsuarioListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuarioListadoMousePressed
+        bajaUsuarioNombre.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 0).toString());
+        bajaUsuarioApellidos.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 1).toString());
+        bajaUsuarioRol.setSelectedIndex(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 2).toString().equalsIgnoreCase("normal") ? 1 : 0);
+        bajaUsuarioId.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 3).toString());
+    }//GEN-LAST:event_tablaUsuarioListadoMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

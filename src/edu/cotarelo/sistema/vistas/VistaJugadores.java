@@ -6,7 +6,9 @@ package edu.cotarelo.sistema.vistas;
 
 import edu.cotarelo.dao.factories.MySQLFactory;
 import edu.cotarelo.dao.objects.JugadorDAO;
+import edu.cotarelo.dao.objects.UsuarioDAO;
 import edu.cotarelo.domain.Jugador;
+import edu.cotarelo.domain.Usuario;
 import edu.cotarelo.sistema.Sistema;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -29,30 +31,21 @@ public class VistaJugadores extends javax.swing.JPanel {
      */
     public VistaJugadores() {
         initComponents();
-        
+
         cargarDropdownsJugadores();
-        
-        tablaJugadoresListado.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                bajaJugadorNombre.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 0).toString());
-                bajaJugadorApellidos.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 1).toString());
-                bajaJugadorPosicion.setSelectedItem(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 2).toString());
-                bajaJugadorId.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 3).toString());
-            }
-        });
     }
 
     /**
-     * Recibe de la base de datos los valores posibles de los menús desplegables de la pestaña Jugadores
+     * Recibe de la base de datos los valores posibles de los menús desplegables
+     * de la pestaña Jugadores
      */
-    private void cargarDropdownsJugadores(){
+    private void cargarDropdownsJugadores() {
         MySQLFactory f = new MySQLFactory();
         JugadorDAO jd = f.getJugadorDAO();
         Collection<String> posiciones = jd.getListaPosiciones().values();
-        for(String posicion : posiciones){
-        altaJugadorPosicion.addItem(posicion);
-        bajaJugadorPosicion.addItem(posicion);
+        for (String posicion : posiciones) {
+            altaJugadorPosicion.addItem(posicion);
+            bajaJugadorPosicion.addItem(posicion);
         }
     }
 
@@ -75,6 +68,51 @@ public class VistaJugadores extends javax.swing.JPanel {
             }
         } catch (NamingException ex) {
             Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void modificarJugador() {
+        if (!bajaJugadorId.getText().isBlank()) {
+            MySQLFactory factoria = new MySQLFactory();
+            JugadorDAO jugadorDao = factoria.getJugadorDAO();
+            try {
+                Jugador jugador = jugadorDao.getJugadorById(Integer.parseInt(bajaJugadorId.getText()));
+                if (jugador != null) {
+                    jugador.setNombre(bajaJugadorNombre.getText());
+                    jugador.setApellidos(bajaJugadorApellidos.getText());
+                    jugador.setPosicion(bajaJugadorPosicion.getSelectedItem().toString());
+                    jugador.setIdJugador(Integer.parseInt(bajaJugadorId.getText()));
+                    int modificado = jugadorDao.modificar(jugador);
+                    if (modificado == 1) {
+
+                        bajaJugadorRespuesta.setForeground(Color.blue);
+                        bajaJugadorRespuesta.setText("Se modificado el jugador con id " + bajaJugadorId.getText());
+                        DefaultTableModel tabla = (DefaultTableModel) tablaJugadoresListado.getModel();
+                        for (int i = 0; i < tabla.getRowCount(); i++) {
+                            if (tabla.getValueAt(i, 3).toString().equals(bajaJugadorId.getText())) {
+                                tabla.setValueAt(jugador.getNombre(), i, 0);
+                                tabla.setValueAt(jugador.getApellidos(), i, 1);
+                                tabla.setValueAt(jugador.getPosicion(), i, 2);
+                                tabla.setValueAt(jugador.getIdJugador(), i, 3);
+                                break;
+                            }
+                        }
+                    } else {
+                        bajaJugadorRespuesta.setForeground(Color.red);
+                        bajaJugadorRespuesta.setText("No se ha podido modificar el jugador");
+                    }
+                } else {
+                    bajaJugadorRespuesta.setForeground(Color.red);
+                    bajaJugadorRespuesta.setText("No se ha encontrado el jugador en la base de datos");
+                }
+            } catch (NullPointerException | NamingException ex) {
+                Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+                bajaJugadorRespuesta.setForeground(Color.red);
+                bajaJugadorRespuesta.setText("Error al modificar el jugador");
+            }
+        } else {
+            bajaJugadorRespuesta.setForeground(Color.red);
+            bajaJugadorRespuesta.setText("Debe seleccionar un jugador de la lista");
         }
     }
 
@@ -108,12 +146,12 @@ public class VistaJugadores extends javax.swing.JPanel {
             tablaJugadoresRespuesta.setText("Se cargaron los jugadores");
         }
     }
-    
+
     /**
      * Elimina el jugador seleccionado de la base de datos
      */
-    private void bajaJugador(){
-         if (!bajaJugadorId.getText().isBlank()) {
+    private void bajaJugador() {
+        if (!bajaJugadorId.getText().isBlank()) {
             MySQLFactory factoria = new MySQLFactory();
             JugadorDAO jugadorDao = factoria.getJugadorDAO();
             try {
@@ -128,6 +166,7 @@ public class VistaJugadores extends javax.swing.JPanel {
                         for (int i = 0; i < tabla.getRowCount(); i++) {
                             if (tabla.getValueAt(i, 3).toString().equals(bajaJugadorId.getText())) {
                                 tabla.removeRow(i);
+                                tablaJugadoresListado.setRowSelectionInterval(i, i);
                                 break;
                             }
                         }
@@ -192,10 +231,12 @@ public class VistaJugadores extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(940, 809));
         setLayout(new java.awt.BorderLayout());
 
+        jPaneles.setBackground(new java.awt.Color(0, 102, 51));
         jPaneles.setMinimumSize(new java.awt.Dimension(881, 333));
         jPaneles.setPreferredSize(new java.awt.Dimension(940, 333));
         jPaneles.setLayout(new java.awt.GridBagLayout());
 
+        jPanelBajaJugadores.setBackground(new java.awt.Color(0, 153, 51));
         jPanelBajaJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelBajaJugadores.setMinimumSize(new java.awt.Dimension(750, 161));
         jPanelBajaJugadores.setPreferredSize(new java.awt.Dimension(920, 161));
@@ -351,6 +392,7 @@ public class VistaJugadores extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPaneles.add(jPanelBajaJugadores, gridBagConstraints);
 
+        jPanelAltaJugadores.setBackground(new java.awt.Color(0, 153, 51));
         jPanelAltaJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelAltaJugadores.setMinimumSize(new java.awt.Dimension(750, 138));
         jPanelAltaJugadores.setPreferredSize(new java.awt.Dimension(920, 132));
@@ -463,6 +505,7 @@ public class VistaJugadores extends javax.swing.JPanel {
 
         add(jPaneles, java.awt.BorderLayout.NORTH);
 
+        jPanelListadoJugadores.setBackground(new java.awt.Color(0, 153, 51));
         jPanelListadoJugadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelListadoJugadores.setMinimumSize(new java.awt.Dimension(692, 110));
         jPanelListadoJugadores.setPreferredSize(new java.awt.Dimension(456, 476));
@@ -492,10 +535,16 @@ public class VistaJugadores extends javax.swing.JPanel {
             }
         });
         tablaJugadoresListado.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaJugadoresListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaJugadoresListadoMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaJugadoresListado);
 
         jPanelListadoJugadores.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
         jPanel1.setMinimumSize(new java.awt.Dimension(450, 70));
         jPanel1.setPreferredSize(new java.awt.Dimension(450, 70));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -584,7 +633,7 @@ public class VistaJugadores extends javax.swing.JPanel {
     }//GEN-LAST:event_botonModificarJugadorMouseClicked
 
     private void botonModificarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarJugadorActionPerformed
-        // TODO add your handling code here:
+        modificarJugador();
     }//GEN-LAST:event_botonModificarJugadorActionPerformed
 
     private void botonCargarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarJugadoresActionPerformed
@@ -598,6 +647,13 @@ public class VistaJugadores extends javax.swing.JPanel {
     private void tablaJugadoresRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaJugadoresRespuestaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tablaJugadoresRespuestaActionPerformed
+
+    private void tablaJugadoresListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJugadoresListadoMousePressed
+        bajaJugadorNombre.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 0).toString());
+        bajaJugadorApellidos.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 1).toString());
+        bajaJugadorPosicion.setSelectedItem(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 2).toString());
+        bajaJugadorId.setText(tablaJugadoresListado.getModel().getValueAt(tablaJugadoresListado.getSelectedRow(), 3).toString());
+    }//GEN-LAST:event_tablaJugadoresListadoMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

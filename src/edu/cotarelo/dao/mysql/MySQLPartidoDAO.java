@@ -13,6 +13,13 @@ import javax.naming.NamingException;
 import edu.cotarelo.dao.objects.PartidoDAO;
 import edu.cotarelo.domain.Club;
 import edu.cotarelo.domain.Partido;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySQLPartidoDAO implements PartidoDAO {
 
@@ -51,7 +58,7 @@ public class MySQLPartidoDAO implements PartidoDAO {
 		MySQLConexionDAO connection =  new MySQLConexionDAO();				
 		try {
 			if(connection.abreConexion(null)) {					
-				String sql = "Delete from partidos where IdClub1='"+partido.getIdClub1().getNombre()+"' and IdClub2='"+partido.getIdClub2().getNombre()+"'";
+				String sql = "Delete from partidos where IdClub1='"+partido.getIdClub1().getNombre()+"' and IdClub2='"+partido.getIdClub2().getNombre()+"'and fecha='"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(partido.getfecha())+"'" ;
 				ps = connection.pStatementGK(sql,Statement.NO_GENERATED_KEYS);
 				
 				if (ps!=null) {
@@ -80,7 +87,6 @@ public class MySQLPartidoDAO implements PartidoDAO {
 					String sql = "UPDATE partidos SET IdClub1 = '"+nuevopartido.getIdClub1().getNombre()+"', IdClub2='"+ nuevopartido.getIdClub2().getNombre()+"' WHERE partidos.IdClub1 ='"+partido.getIdClub1().getNombre()+"' AND partidos.IdClub2 ='"+partido.getIdClub2().getNombre()+"'";
 					ps = connection.pStatementGK(sql,Statement.NO_GENERATED_KEYS);					
 					if (ps!=null) {
-
 						int rowAffected = ps.executeUpdate();
 						if(rowAffected == 1){
 							salida=1;
@@ -98,14 +104,14 @@ public class MySQLPartidoDAO implements PartidoDAO {
 	}
 	@SuppressWarnings({ "unused" })
 	@Override
-	public Partido getPartidoById(String IdClub1, String IdClub2) throws NamingException {
+	public Partido getPartidoById(String IdClub1, String IdClub2,Date fechaPartido) throws NamingException {
 		Partido partido = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		MySQLConexionDAO connection =  new MySQLConexionDAO();				
 		try {
 			if(connection.abreConexion(null)) {					
-				String sql = "SELECT * from partidos WHERE IdClub1='"+IdClub1+"' and IdClub2='"+IdClub2+"'";
+				String sql = "SELECT * from partidos WHERE IdClub1='"+IdClub1+"' and IdClub2='"+IdClub2+"' and fecha = '"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(fechaPartido)+"'" ;
 				ps = connection.pStatementGK(sql,Statement.NO_GENERATED_KEYS);
 				if (ps!=null) {
 					rs = ps.executeQuery();
@@ -118,7 +124,11 @@ public class MySQLPartidoDAO implements PartidoDAO {
 						club1.setNombre(rs.getString("IdClub1"));
 						club2.setIdClub(rs.getString("IdClub2"));
 						club2.setNombre(rs.getString("IdClub2"));
-						fecha = (java.util.Date) rs.getTimestamp("fecha");
+                                            try {
+                                                fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse( rs.getString("fecha"));
+                                            } catch (ParseException ex) {
+                                                Logger.getLogger(MySQLPartidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
 					}
 					if (club1!=null&&club2!=null) {
 						partido = new Partido(club1,club2,fecha);
@@ -187,6 +197,7 @@ public class MySQLPartidoDAO implements PartidoDAO {
 							club2.setNombre(rs.getString("IdClub2"));
 							partido.setIdClub1(club1);
 							partido.setIdClub2(club2);
+                                                        partido.setfecha(new Date(rs.getTimestamp("fecha").getTime()));
 							lista.add(partido);	
 						}
 					}
