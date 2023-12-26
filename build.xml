@@ -10,7 +10,29 @@
 <project name="Futbol" default="default" basedir=".">
     <description>Builds, tests, and runs the project Futbol.</description>
     <import file="nbproject/build-impl.xml"/>
-    
+
+    <!-- Definición de propiedades -->
+    <property name="dir.src" location="src"/>
+    <property name="dir.build" location="build"/>
+    <property name="dir.lib" location="lib"/>
+
+    <!-- Configuración de la tarea "javac" para compilar el código fuente -->
+    <target name="compilar">
+        <mkdir dir="${dir.build}"/>
+        <javac srcdir="${dir.src}" destdir="${dir.build}" encoding="UTF-8"/>
+    </target>
+
+    <!-- Configuración de la tarea "jar" para empaquetar el proyecto -->
+    <target name="-do-jar" depends="compilar">
+        <jar destfile="${dir.build}/futbol.jar" basedir="${dir.build}" includes="**/*">
+            <fileset dir="${dir.src}" includes="edu/cotarelo/img/**"/>
+            <fileset dir="${dir.src}" includes="com/**"/>
+            <manifest>
+                <attribute name="Main-Class" value="edu.cotarelo.sistema.Login"/>
+            </manifest>
+        </jar>
+    </target>
+
     
     <!--
 

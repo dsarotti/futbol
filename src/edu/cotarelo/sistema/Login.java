@@ -66,6 +66,7 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         loginPass = new javax.swing.JPasswordField();
         loginTitulo = new javax.swing.JLabel();
@@ -75,31 +76,43 @@ public class Login extends javax.swing.JFrame {
         cesped = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(680, 570));
-        setMinimumSize(new java.awt.Dimension(680, 570));
-        setPreferredSize(new java.awt.Dimension(680, 570));
+        setMinimumSize(new java.awt.Dimension(680, 550));
+        setPreferredSize(new java.awt.Dimension(680, 550));
         setResizable(false);
-        setSize(new java.awt.Dimension(680, 570));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setSize(new java.awt.Dimension(680, 550));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         loginPass.setBackground(new java.awt.Color(0, 153, 51));
         loginPass.setForeground(new java.awt.Color(255, 255, 255));
         loginPass.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         loginPass.setCaretColor(new java.awt.Color(255, 255, 255));
-        getContentPane().add(loginPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 390, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 326;
+        gridBagConstraints.ipady = 32;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 140, 0, 140);
+        getContentPane().add(loginPass, gridBagConstraints);
 
         loginTitulo.setBackground(new java.awt.Color(107, 199, 0));
         loginTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         loginTitulo.setForeground(new java.awt.Color(255, 255, 255));
         loginTitulo.setText("Acceso para usuarios");
         loginTitulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(loginTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(80, 160, 0, 0);
+        getContentPane().add(loginTitulo, gridBagConstraints);
 
         loginNombre.setBackground(new java.awt.Color(0, 153, 0));
         loginNombre.setForeground(new java.awt.Color(255, 255, 255));
         loginNombre.setText("Introduzca aquí su nombre de usuario");
         loginNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         loginNombre.setCaretColor(new java.awt.Color(255, 255, 255));
+        loginNombre.setPreferredSize(new java.awt.Dimension(64, 48));
         loginNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 loginNombreFocusGained(evt);
@@ -113,7 +126,14 @@ public class Login extends javax.swing.JFrame {
                 loginNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(loginNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 390, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 326;
+        gridBagConstraints.ipady = 32;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(30, 140, 0, 140);
+        getContentPane().add(loginNombre, gridBagConstraints);
 
         loginButton.setBackground(new java.awt.Color(51, 51, 255));
         loginButton.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -129,13 +149,33 @@ public class Login extends javax.swing.JFrame {
                 loginButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 200, 70));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 67;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(30, 240, 0, 0);
+        getContentPane().add(loginButton, gridBagConstraints);
 
         balonAzul.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/balon.jpg"))); // NOI18N
-        getContentPane().add(balonAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 350, 400));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.ipadx = -150;
+        gridBagConstraints.ipady = -100;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(92, 330, 0, 0);
+        getContentPane().add(balonAzul, gridBagConstraints);
 
         cesped.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/cotarelo/img/cesped.jpeg"))); // NOI18N
-        getContentPane().add(cesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 570));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(cesped, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -43,8 +43,8 @@ public class VistaEquipos extends javax.swing.JPanel {
         } else {
             Club nuevo = new Club(
                     altaEquiposNombre.getText(),
-                    altaEquiposCampo.getText(),
-                    altaEquiposDescripcion.getText()
+                    altaEquiposDescripcion.getText(),
+                    altaEquiposCampo.getText()
             );
             MySQLFactory factoria = new MySQLFactory();
             ClubDAO clubDAO = factoria.getClubDAO();

@@ -183,6 +183,8 @@ public class VistaUsuarios extends javax.swing.JPanel {
                     auxObject[3] = lista.get(i).getIdUsuario();
                     tm.addRow(auxObject);
                 }
+                tablaUsuariosRespuesta.setForeground(Color.blue);
+                tablaUsuariosRespuesta.setText("Se ha cargado la lista de usuarios");
             }
         } catch (ClassNotFoundException e) {
             System.out.println("Error");
@@ -430,6 +432,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -18;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -598,7 +601,7 @@ public class VistaUsuarios extends javax.swing.JPanel {
     private void tablaUsuarioListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuarioListadoMousePressed
         bajaUsuarioNombre.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 0).toString());
         bajaUsuarioApellidos.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 1).toString());
-        bajaUsuarioRol.setSelectedIndex(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 2).toString().equalsIgnoreCase("normal") ? 1 : 0);
+        bajaUsuarioRol.setSelectedIndex(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 2).toString().equalsIgnoreCase("normal") ? 0 : 1);
         bajaUsuarioId.setText(tablaUsuarioListado.getModel().getValueAt(tablaUsuarioListado.getSelectedRow(), 3).toString());
     }//GEN-LAST:event_tablaUsuarioListadoMousePressed
 
